@@ -1,6 +1,7 @@
 {
   "name": "Blog",
   "version": "2.1.0",
+  "node-version": "16.13.2",
   "private": true,
   "scripts": {
     "build": "react-scripts build",
