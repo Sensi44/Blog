@@ -1,8 +1,8 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Layout } from '../Layout';
-import { HomePage } from '../../pages/HomePage';
+import { Posts } from '../Posts';
 import './App.scss';
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path='posts/' element={<p>Posts / Articles</p>} />
+          <Route index element={<Navigate to='/posts' replace />} />
+          <Route path='posts/' element={<Posts />} />
           <Route path='posts/:id' element={<p>Current post</p>} />
         </Route>
         <Route path='/about' element={<p>about</p>} />
