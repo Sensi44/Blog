@@ -1,0 +1,53 @@
+a.active-link {
+  background-color: coral;
+  color: black;
+}
+
+.dev-navigation {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: lightgray;
+}
+
+.app {
+  width: 1440px;
+  height: 100vh;
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  background-color: #EBEEF3;
+}
+
+header,
+.navigation {
+  border: 1px solid black;
+  align-self: stretch;
+  text-align: center;
+}
+
+header {
+  background-color: #FFFFFF;
+}
+
+.navigation {
+  text-align: center;
+}
+
+.test-link {
+  padding: 5px;
+  margin: 3px;
+  border-radius: 3px;
+  border: 1px solid rgba(199,199,199,0.3);
+}
