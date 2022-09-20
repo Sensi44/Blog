@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import { PostPreview } from '../PostPreview';
+
 import './Posts.scss';
+import styles from './Posts.module.scss';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -12,17 +15,16 @@ const Posts = () => {
       .then((data) => setPosts(data));
   }, []);
 
-  console.log(posts);
-
   return (
     <div>
-      <p>post && articles</p>
       {articles ? (
-        articles.map((post, index) => (
-          <Link key={index} to={`/posts/${post.title}`}>
-            <li>{post.title}</li>
-          </Link>
-        ))
+        articles
+          .filter((post, index) => index >= 15)
+          .map((post, index) => (
+            <div key={`post-${index}`} className={styles.post}>
+              <PostPreview post={post} />
+            </div>
+          ))
       ) : (
         <p>Постов нет</p>
       )}

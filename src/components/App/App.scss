@@ -1,4 +1,5 @@
 $main-background: #F2F6FA;
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap');
 
 .all-border {
   background: #FFFFFF;
@@ -13,12 +14,13 @@ $main-background: #F2F6FA;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: lightslategray;
 }
 
 * {
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 article {

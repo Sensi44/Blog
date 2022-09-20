@@ -25,7 +25,7 @@ const Header = () => {
         <CustomLink to='/posts' name='test-link'>
           posts
         </CustomLink>
-        <CustomLink to='/posts/3' name='test-link'>
+        <CustomLink to='/posts/123-eka4vn' name='test-link'>
           posts-3
         </CustomLink>
       </div>

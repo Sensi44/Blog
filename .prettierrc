@@ -9,5 +9,6 @@
   "bracketSpacing": true,
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "multiline": false
 }
