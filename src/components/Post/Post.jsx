@@ -40,8 +40,6 @@ const Post = () => {
     articleInfo,
   } = styles;
 
-  console.log(post);
-
   useEffect(() => {
     fetch(`https://blog.kata.academy/api/articles/${slug}`)
       .then((res) => res.json())

@@ -7,7 +7,7 @@ import { Post } from '../Post';
 import './App.scss';
 
 function App() {
-  console.log('app');
+  console.log('BLog-platform v2.1');
 
   return (
     <>
