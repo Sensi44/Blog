@@ -7,8 +7,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import reducer, { chooseFilter } from './reducers/toolKitSlice';
 import { App } from './components/App';
 
-import 'antd/dist/antd.min.css';
-
 const logger = () => (next) => (action) => {
   console.log('▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬');
   console.log(action.type);
