@@ -15,9 +15,7 @@ const Posts = () => {
 
   useEffect(() => {
     const offset = (page > 0 ? page - 1 : 0) * 5;
-    getArticles(offset).then((res) => {
-      setPosts(res);
-    });
+    getArticles(offset).then((res) => setPosts(res));
   }, [page]);
 
   const { articles, articlesCount } = posts;

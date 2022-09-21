@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
+import { getPost } from '../../Api';
 import likeIcon from '../../assets/img/like.svg';
 import styles from '../PostPreview/PostP.module.scss';
 import dateCorrector from '../../utils/dateCorrector';
@@ -41,9 +42,10 @@ const Post = () => {
   } = styles;
 
   useEffect(() => {
-    fetch(`https://blog.kata.academy/api/articles/${slug}`)
-      .then((res) => res.json())
-      .then((data) => setPost(data.article));
+    getPost(slug).then((res) => setPost(res.article));
+    // fetch(`https://blog.kata.academy/api/articles/${slug}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setPost(data.article));
   }, [slug]);
 
   return (
