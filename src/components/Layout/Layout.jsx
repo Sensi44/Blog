@@ -11,8 +11,6 @@ const Layout = () => (
     <main className='container'>
       <Outlet />
     </main>
-
-    <div className='navigation'>Навигация / пагинация</div>
   </div>
 );
 

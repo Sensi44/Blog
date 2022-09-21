@@ -16,19 +16,22 @@ const Posts = () => {
   }, []);
 
   return (
-    <div>
-      {articles ? (
-        articles
-          .filter((post, index) => index >= 15)
-          .map((post, index) => (
-            <div key={`post-${index}`} className={styles.post}>
-              <PostPreview post={post} />
-            </div>
-          ))
-      ) : (
-        <p>Постов нет</p>
-      )}
-    </div>
+    <>
+      <div>
+        {articles ? (
+          articles
+            .filter((post, index) => index >= 15)
+            .map((post, index) => (
+              <div key={`post-${index}`} className={styles.post}>
+                <PostPreview post={post} />
+              </div>
+            ))
+        ) : (
+          <p>Постов нет</p>
+        )}
+      </div>
+      <div className='navigation'>Навигация / пагинация</div>
+    </>
   );
 };
 

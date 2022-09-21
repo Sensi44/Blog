@@ -18,7 +18,7 @@ a.active-link {
   border-left: 2px solid black;
   border-right: 2px solid black;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
   background-color: #EBEEF3;
@@ -28,6 +28,7 @@ a.active-link {
   text-align: center;
   border: 1px solid black;
   align-self: stretch;
+  margin-top: auto;
 }
 
 .container {
@@ -36,6 +37,9 @@ a.active-link {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 100%;
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  flex-grow: 1;
 }
 
