@@ -10,6 +10,29 @@
   padding: 14px 14px 23px 19px;
 }
 
+.error {
+  border: 7px solid red;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  height: auto;
+  padding: 10px;
+  margin-top: 150px;
+}
+
+.error > p {
+  margin: 5px;
+}
+
+.error > p:last-child {
+  font-size: 120%;
+  font-weight: 500;
+}
+
+.spin {
+  margin-top: 150px;
+}
+
 .post:last-child {
   margin-bottom: auto;
 }

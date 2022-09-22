@@ -134,3 +134,27 @@
   margin-left: 12px;
   border-radius: 50%;
 }
+
+
+.loadingError {
+  border: 7px solid red;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  height: auto;
+  padding: 10px;
+  margin-top: 150px;
+}
+
+.loadingError > p {
+  margin: 5px;
+}
+
+.loadingError > p:last-child {
+  font-size: 120%;
+  font-weight: 500;
+}
+
+.spin {
+  margin-top: 150px;
+}

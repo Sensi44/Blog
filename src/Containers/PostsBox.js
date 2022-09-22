@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 
 import { Posts } from '../components/Posts';
+import { Post } from '../components/Post';
 
 const mapStateToProps = (state) => {
-  const { loading } = state;
+  const { loading, error } = state;
   return {
     loading,
+    error,
   };
 };
 
-const PostsBox = connect(mapStateToProps, null)(Posts);
-
-export default PostsBox;
+export const PostsBox = connect(mapStateToProps, null)(Posts);
+export const PostBox = connect(mapStateToProps, null)(Post);

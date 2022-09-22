@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { Spin } from 'antd';
 
 import { getPost } from '../../Api';
 import likeIcon from '../../assets/img/like.svg';
-import styles from '../PostPreview/PostP.module.scss';
 import dateCorrector from '../../utils/dateCorrector';
+import {
+  setLoading,
+  setError,
+  startLoading,
+} from '../../reducers/toolKitSlice';
+import 'antd/dist/antd.min.css';
+import styles from '../PostPreview/PostP.module.scss';
 
-const Post = () => {
+const Post = ({ loading, error, dispatch }) => {
   const { slug } = useParams();
   const [post, setPost] = useState({
     tagList: [],
@@ -39,51 +46,68 @@ const Post = () => {
     likeCount,
     articleBody,
     articleInfo,
+    spin,
+    loadingError,
   } = styles;
 
   useEffect(() => {
-    getPost(slug).then((res) => setPost(res.article));
-    // fetch(`https://blog.kata.academy/api/articles/${slug}`)
-    //   .then((res) => res.json())
-    //   .then((data) => setPost(data.article));
+    dispatch(startLoading());
+    getPost(slug)
+      .then((res) => setPost(res.article))
+      .catch((err) => dispatch(setError(err.message)))
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
   }, [slug]);
 
   return (
-    <div className={article}>
-      <div className={articleInfo}>
-        <div className={left}>
-          <div className={leftTop}>
-            <Link className={titleLink} to={`/posts/${slug}`}>
-              {title}
-            </Link>
-            <img src={likeIcon} className={like} alt='aaa' />
-            <span className={likeCount}>1</span>
-          </div>
+    <>
+      {loading ? <Spin size='large' className={spin} /> : null}
 
-          <ul className={tags}>
-            {tagList.length
-              ? tagList.map((element, index) => (
-                  <li className={tag} key={`tag-${index}`}>
-                    {element}
-                  </li>
-                ))
-              : null}
-          </ul>
-          <p className={preview}>{description}</p>
+      {error ? (
+        <div className={loadingError}>
+          <p>Во время загрузки данных произошла ошибка</p>
+          <p>Абонент недоступен или временно ананас</p>
+          <p>{`"${error}"`}</p>
         </div>
+      ) : (
+        <div className={article}>
+          <div className={articleInfo}>
+            <div className={left}>
+              <div className={leftTop}>
+                <Link className={titleLink} to={`/posts/${slug}`}>
+                  {title}
+                </Link>
+                <img src={likeIcon} className={like} alt='aaa' />
+                <span className={likeCount}>1</span>
+              </div>
 
-        <div className={right}>
-          <div className={rightLeft}>
-            <div className={name}>{username}</div>
-            <time className={date}>{dateCorrector(createdAt)}</time>
+              <ul className={tags}>
+                {tagList.length
+                  ? tagList.map((element, index) => (
+                      <li className={tag} key={`tag-${index}`}>
+                        {element}
+                      </li>
+                    ))
+                  : null}
+              </ul>
+              <p className={preview}>{description}</p>
+            </div>
+
+            <div className={right}>
+              <div className={rightLeft}>
+                <div className={name}>{username}</div>
+                <time className={date}>{dateCorrector(createdAt)}</time>
+              </div>
+              <img src={image} className={avatar} alt={`${username} avatar`} />
+            </div>
           </div>
-          <img src={image} className={avatar} alt={`${username} avatar`} />
+          <div className={articleBody}>
+            <ReactMarkdown>{post.body}</ReactMarkdown>
+          </div>
         </div>
-      </div>
-      <div className={articleBody}>
-        <ReactMarkdown>{post.body}</ReactMarkdown>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
