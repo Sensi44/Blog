@@ -13,3 +13,22 @@ export function getPost(slug) {
   const res = axios.get(apiUrl).then((resp) => resp.data);
   return res;
 }
+
+export function signUp(username, email, password) {
+  const test = {
+    user: {
+      username: 'JohnDO11133',
+      email: 'pipisyn2ka2@yan33dex.ru',
+      password: 'qweras2df332',
+    },
+  };
+
+  const res = axios({
+    method: 'post',
+    url: 'https://blog.kata.academy/api/users',
+    data: JSON.stringify(test),
+    headers: { 'content-type': 'application/json' },
+  }).then(() => null);
+  console.log(res);
+  return res;
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import { signUp } from '../../Api';
+
 import styles from './SignUp.module.scss';
 import './SignUp.scss';
 
@@ -12,12 +14,14 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const { password, repeatPassword } = watch();
 
   const onSubmit = (data) => console.log(data);
-
-  console.log(watch('Username'));
-  console.log(watch('check'));
-  console.log(errors);
+  console.log(
+    signUp('Jo123123', 'sdffgffsssdf@gavno2.ru', '123545345').catch((err) => {
+      console.log(err);
+    })
+  );
 
   return (
     <div className={styles.formContainer}>
@@ -29,13 +33,13 @@ const SignUp = () => {
             className={styles.input}
             type='text'
             placeholder='Username'
-            {...register('Username', {
+            {...register('username', {
               required: true,
               maxLength: 20,
               pattern: /^[0-9A-Za-z]+$/i,
             })}
           />
-          {errors.Username && (
+          {errors.username && (
             <span className={styles.inputError}>
               enter username, max length 20 characters
             </span>
@@ -48,13 +52,13 @@ const SignUp = () => {
             className={styles.input}
             type='email'
             placeholder='Email address'
-            {...register('Email', {
+            {...register('email', {
               required: true,
               maxLength: 80,
               pattern: /^\S+@\S+$/i,
             })}
           />
-          {errors.Email && (
+          {errors.email && (
             <span className={styles.inputError}>
               Please enter a valid email address
             </span>
@@ -68,14 +72,14 @@ const SignUp = () => {
             autoComplete='on'
             type='password'
             placeholder='Password'
-            {...register('Password', {
+            {...register('password', {
               required: true,
               minLength: 6,
               maxLength: 20,
               pattern: /^[0-9A-Za-z]+$/i,
             })}
           />
-          {errors.Password && (
+          {errors.password && (
             <span className={styles.inputError}>
               Your password needs to be at least 6 characters.
             </span>
@@ -89,21 +93,21 @@ const SignUp = () => {
             autoComplete='on'
             type='password'
             placeholder='Password'
-            {...register('RepeatPassword', {
+            {...register('repeatPassword', {
               required: true,
               minLength: 6,
               maxLength: 20,
               pattern: /^[0-9A-Za-z]+$/i,
             })}
           />
-          {errors.RepeatPassword && (
+          {errors.repeatPassword && (
             <span className={styles.inputError}>
               Your password needs to be at least 6 characters
             </span>
           )}
           <div>
-            {watch('Password') !== watch('RepeatPassword') ? (
-              <span>Пароли не совпадают</span>
+            {password !== repeatPassword ? (
+              <span className={styles.inputError}>Passwords do not match</span>
             ) : null}
           </div>
         </label>

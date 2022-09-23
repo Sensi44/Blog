@@ -91,14 +91,38 @@
 .input::-webkit-input-placeholder {color: #BFBFBF;}
 .input:-moz-placeholder {color: #BFBFBF;}
 
-.input::-webkit-input-placeholder       {text-indent: 0;   transition: text-indent 0.4s ease;}
-.input::-moz-placeholder                {text-indent: 0;   transition: text-indent 0.4s ease;}
-.input:-moz-placeholder                 {text-indent: 0;   transition: text-indent 0.4s ease;}
-.input:-ms-input-placeholder            {text-indent: 0;   transition: text-indent 0.4s ease;}
-.input:focus::-webkit-input-placeholder {text-indent: 500px; transition: text-indent 0.4s ease;}
-.input:focus::-moz-placeholder          {text-indent: 500px; transition: text-indent 0.4s ease;}
-.input:focus:-moz-placeholder           {text-indent: 500px; transition: text-indent 0.4s ease;}
-.input:focus:-ms-input-placeholder      {text-indent: 500px; transition: text-indent 0.4s ease;}
+.input::-webkit-input-placeholder {
+  text-indent: 0;
+  transition: text-indent 0.4s ease;
+}
+
+.input::-moz-placeholder {
+  text-indent: 0; transition: text-indent 0.4s ease;
+}
+
+.input:-moz-placeholder {
+  text-indent: 0; transition: text-indent 0.4s ease;
+}
+
+.input:-ms-input-placeholder {
+  text-indent: 0; transition: text-indent 0.4s ease;
+}
+
+.input:focus::-webkit-input-placeholder {
+  text-indent: 500px; transition: text-indent 0.4s ease;
+}
+
+.input:focus::-moz-placeholder {
+  text-indent: 500px; transition: text-indent 0.4s ease;
+}
+
+.input:focus:-moz-placeholder {
+  text-indent: 500px; transition: text-indent 0.4s ease;
+}
+
+.input:focus:-ms-input-placeholder {
+  text-indent: 500px; transition: text-indent 0.4s ease;
+}
 
 .mainButton {
   display: flex;
