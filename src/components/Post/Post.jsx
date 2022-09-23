@@ -58,7 +58,7 @@ const Post = ({ loading, error, dispatch }) => {
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [slug]);
+  }, [slug, dispatch]);
 
   return (
     <>

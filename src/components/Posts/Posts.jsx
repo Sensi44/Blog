@@ -31,7 +31,7 @@ const Posts = ({ loading, error, dispatch }) => {
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [page]);
+  }, [page, dispatch]);
 
   const { articles, articlesCount } = posts;
   return (

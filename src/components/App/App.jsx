@@ -2,12 +2,11 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Layout } from '../Layout';
-import { Post } from '../Post';
 import { PostsBox, PostBox } from '../../Containers/PostsBox';
 import './App.scss';
 
 function App() {
-  console.log('BLog-platform v2.1');
+  console.log('BLog-platform v2.2');
 
   return (
     <>
