@@ -86,7 +86,6 @@
   padding-top: 8px;
   width: 100%;
   display: flex;
-  margin-bottom: 21px;
 }
 
 .input::-webkit-input-placeholder {color: #BFBFBF;}
@@ -119,6 +118,7 @@
   cursor: pointer;
   border: 1px solid #1890FF;
   margin-bottom: 8px;
+  margin-top: 21px;
 }
 
 .mainButton:focus-visible {

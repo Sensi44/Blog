@@ -15,8 +15,8 @@ const SignUp = () => {
 
   const onSubmit = (data) => console.log(data);
 
-  // console.log(watch('Username'));
-  // console.log(watch('check'));
+  console.log(watch('Username'));
+  console.log(watch('check'));
   console.log(errors);
 
   return (
@@ -70,10 +70,16 @@ const SignUp = () => {
             placeholder='Password'
             {...register('Password', {
               required: true,
+              minLength: 6,
               maxLength: 20,
               pattern: /^[0-9A-Za-z]+$/i,
             })}
           />
+          {errors.Password && (
+            <span className={styles.inputError}>
+              Your password needs to be at least 6 characters.
+            </span>
+          )}
         </label>
 
         <label>
@@ -83,12 +89,23 @@ const SignUp = () => {
             autoComplete='on'
             type='password'
             placeholder='Password'
-            {...register('Repeat Password', {
+            {...register('RepeatPassword', {
               required: true,
+              minLength: 6,
               maxLength: 20,
               pattern: /^[0-9A-Za-z]+$/i,
             })}
           />
+          {errors.RepeatPassword && (
+            <span className={styles.inputError}>
+              Your password needs to be at least 6 characters
+            </span>
+          )}
+          <div>
+            {watch('Password') !== watch('RepeatPassword') ? (
+              <span>Пароли не совпадают</span>
+            ) : null}
+          </div>
         </label>
 
         <div className={styles.line}>
@@ -106,6 +123,11 @@ const SignUp = () => {
             I agree to the processing of my personal information
           </div>
         </div>
+        {errors.check && (
+          <span className={styles.inputError}>
+            you must consent to the processing of personal data
+          </span>
+        )}
 
         <input type='submit' value='Create' className={styles.mainButton} />
         <div className={styles.replace}>
