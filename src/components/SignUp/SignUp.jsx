@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import styles from './SignUp.module.scss';
 import './SignUp.scss';
 
 const SignUp = () => {
+  const [dat, setDat] = useState({});
   const {
     register,
     handleSubmit,
@@ -17,11 +18,17 @@ const SignUp = () => {
   const { password, repeatPassword } = watch();
 
   const onSubmit = (data) => console.log(data);
-  console.log(
-    signUp('Jo123123', 'sdffgffsssdf@gavno2.ru', '123545345').catch((err) => {
-      console.log(err);
-    })
-  );
+  useEffect(() => {
+    signUp(
+      'John1DO1asd6135gf',
+      'pipis2yaasdn433223dx@yandex.ru',
+      'qwer2as232'
+    ).then((r) => console.log(r));
+  }, []);
+
+  // console.log(
+  //   signUp('John1DO11133112', 'pipis2ynka2@yan33223dex.ru', 'qweras2df333232')
+  // );
 
   return (
     <div className={styles.formContainer}>
