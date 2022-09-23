@@ -15,8 +15,8 @@ const SignUp = () => {
 
   const onSubmit = (data) => console.log(data);
 
-  console.log(watch('Username'));
-  console.log(watch('check'));
+  // console.log(watch('Username'));
+  // console.log(watch('check'));
   console.log(errors);
 
   return (
@@ -31,11 +31,17 @@ const SignUp = () => {
             placeholder='Username'
             {...register('Username', {
               required: true,
-              maxLength: 30,
+              maxLength: 20,
               pattern: /^[0-9A-Za-z]+$/i,
             })}
           />
+          {errors.Username && (
+            <span className={styles.inputError}>
+              enter username, max length 20 characters
+            </span>
+          )}
         </label>
+
         <label>
           <div className={styles.label}>Email address</div>
           <input
@@ -48,12 +54,18 @@ const SignUp = () => {
               pattern: /^\S+@\S+$/i,
             })}
           />
+          {errors.Email && (
+            <span className={styles.inputError}>
+              Please enter a valid email address
+            </span>
+          )}
         </label>
 
         <label>
           <div className={styles.label}>Password</div>
           <input
             className={styles.input}
+            autoComplete='on'
             type='password'
             placeholder='Password'
             {...register('Password', {
@@ -68,6 +80,7 @@ const SignUp = () => {
           <div className={styles.label}>Repeat Password</div>
           <input
             className={styles.input}
+            autoComplete='on'
             type='password'
             placeholder='Password'
             {...register('Repeat Password', {
