@@ -1,0 +1,35 @@
+.checkBox > label {
+  display: block;
+  padding: 9px 0 9px 50px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+.checkBox:hover {
+  background: #F1FCFF;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.check__input {
+  position: absolute;
+  appearance: none;
+}
+
+.check__box {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #9ABBCE;
+  border-radius: 2px;
+  margin-top: 2px;
+}
+
+.check__input:checked + .check__box {
+  border: 1px solid #2196F3;
+  background: #2196F3 url(../../assets/img/check.svg) no-repeat 45% 40%;
+  background-size: 11px 9px;
+}
+
+.check__input:focus + .check__box {
+  border: 2px solid #2196F3;
+}

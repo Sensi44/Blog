@@ -17,6 +17,10 @@ header > a {
   color: rgba(0, 0, 0, 0.85);
 }
 
+header > a:hover {
+  color: rgba(0, 0, 0, 0.85);
+}
+
 a.to-home {
   margin: 9px auto 15px 22px;
   width: 147px;
@@ -35,6 +39,13 @@ a.sign-up {
   border-radius: 5px;
   margin: 16px 22px 13px 19px;
   padding: 6px 18px 10px 18px;
+}
+
+a.sign-up:hover {
+  border: 1px solid rgba(0, 0, 0, 0.85);
+  background-color: #EBEEF3;
+  transform: skewX(-2deg);
+  transition: 0.5s;
 }
 
 

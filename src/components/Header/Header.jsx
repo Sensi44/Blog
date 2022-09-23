@@ -10,10 +10,10 @@ const Header = () => {
       <Link to='/' className='to-home'>
         RealWorldBlog
       </Link>
-      <Link to='/signIn' className='sign-in'>
+      <Link to='/sign-in' className='sign-in'>
         Sign In
       </Link>
-      <Link to='/signUp' className='sign-up'>
+      <Link to='/sign-up' className='sign-up'>
         Sign Up
       </Link>
 
@@ -26,7 +26,16 @@ const Header = () => {
           posts
         </CustomLink>
         <CustomLink to='/posts/123-eka4vn' name='test-link'>
-          posts-3
+          posts/123
+        </CustomLink>
+        <CustomLink to='/sign-up' name='test-link'>
+          Регистрация
+        </CustomLink>
+        <CustomLink to='/sign-in' name='test-link'>
+          Вход
+        </CustomLink>
+        <CustomLink to='/profile' name='test-link'>
+          Профиль
         </CustomLink>
       </div>
     </header>
