@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -8,27 +8,25 @@ import styles from './SignUp.module.scss';
 import './SignUp.scss';
 
 const SignUp = () => {
-  const [dat, setDat] = useState({});
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const { password, repeatPassword } = watch();
 
-  const onSubmit = (data) => console.log(data);
-  useEffect(() => {
-    signUp(
-      'John1DO1asd6135gf',
-      'pipis2yaasdn433223dx@yandex.ru',
-      'qwer2as232'
-    ).then((r) => console.log(r));
-  }, []);
-
-  // console.log(
-  //   signUp('John1DO11133112', 'pipis2ynka2@yan33223dex.ru', 'qweras2df333232')
-  // );
+  const onSubmit = ({ username, email, password }) => {
+    console.log(username, email, password);
+    signUp(username, email, password)
+      .then((r) => {
+        alert('Пользователь успешно зарегистрирован');
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          alert('Пользователь с такими данными уже зарегистрирован');
+        }
+      });
+  };
 
   return (
     <div className={styles.formContainer}>
@@ -113,7 +111,7 @@ const SignUp = () => {
             </span>
           )}
           <div>
-            {password !== repeatPassword ? (
+            {watch('password') !== watch('repeatPassword') ? (
               <span className={styles.inputError}>Passwords do not match</span>
             ) : null}
           </div>
