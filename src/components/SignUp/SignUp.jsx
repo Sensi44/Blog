@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { signUp } from '../../Api';
+import { setModal } from '../../reducers/toolKitSlice';
 
 import styles from './SignUp.module.scss';
 import './SignUp.scss';
 
-const SignUp = () => {
+const SignUp = ({ modalWindow, dispatch }) => {
   const {
     register,
     handleSubmit,
@@ -15,23 +16,35 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
+  const redirect = () => {
+    document.location.href = 'sign-in';
+  };
+
   const onSubmit = ({ username, email, password }) => {
     console.log(username, email, password);
     signUp(username, email, password)
       .then((r) => {
-        alert('Пользователь успешно зарегистрирован');
+        console.log(r);
+        dispatch(setModal(true));
+        // alert(`Пользователь ${r.user.username} успешно зарегистрирован`);
+        setTimeout(() => {
+          dispatch(setModal(true));
+        }, 800);
+        setTimeout(redirect, 1500);
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 422) {
           alert('Пользователь с такими данными уже зарегистрирован');
         }
       });
   };
-
+  console.log(modalWindow);
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={styles.title}>Create new account</h2>
+        {modalWindow ? <div className={styles.success}>Success</div> : null}
         <label>
           <div className={styles.label}>Username</div>
           <input

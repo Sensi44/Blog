@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   loading: false,
   error: '',
+  modalWindow: false,
 };
 
 const ticketsSlice = createSlice({
@@ -19,10 +20,13 @@ const ticketsSlice = createSlice({
       state.loading = true;
       state.error = '';
     },
+    setModal(state, action) {
+      state.modalWindow = action.payload;
+    },
   },
 });
 
 const { actions, reducer } = ticketsSlice;
-export const { setLoading, setError, startLoading } = actions;
+export const { setLoading, setError, startLoading, setModal } = actions;
 
 export default reducer;
