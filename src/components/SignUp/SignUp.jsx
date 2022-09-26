@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { signUp } from '../../Api';
 import { setModal } from '../../reducers/toolKitSlice';
@@ -16,8 +16,11 @@ const SignUp = ({ modalWindow, dispatch }) => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const redirect = () => {
-    document.location.href = 'sign-in';
+    navigate('/sign-in');
+    // document.location.href = 'sign-in';
   };
 
   const onSubmit = ({ username, email, password }) => {
