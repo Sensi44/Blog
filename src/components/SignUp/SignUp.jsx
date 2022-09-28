@@ -1,44 +1,43 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { useAuth } from 'hooks/useAuth';
 
 import { signUp } from '../../Api';
-import { setModal } from '../../reducers/toolKitSlice';
+import { setModal } from '../../store/slices/loadingSlice';
 
 import styles from './SignUp.module.scss';
 import './SignUp.scss';
 
-const SignUp = ({ modalWindow, dispatch }) => {
+const SignUp = () => {
+  const dispatch = useDispatch();
+  const { modalWindow } = useAuth();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+  console.log(watch());
 
   const navigate = useNavigate();
 
   const redirect = () => {
     navigate('/sign-in');
-    // document.location.href = 'sign-in';
   };
 
   const onSubmit = ({ username, email, password }) => {
-    console.log(username, email, password);
     signUp(username, email, password)
-      .then((r) => {
-        console.log(r);
+      .then(() => {
         dispatch(setModal(true));
-        // alert(`Пользователь ${r.user.username} успешно зарегистрирован`);
-        setTimeout(() => {
-          dispatch(setModal(true));
-        }, 800);
+        setTimeout(() => dispatch(setModal(false)), 1300);
         setTimeout(redirect, 1500);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 422) {
-          alert('Пользователь с такими данными уже зарегистрирован');
+          alert('User is already registered');
         }
       });
   };

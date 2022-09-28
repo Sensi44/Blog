@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import dateCorrector from '../../utils/dateCorrector';
-import likeIcon from '../../assets/img/like.svg';
+import dateCorrector from 'utils/dateCorrector';
+import likeIcon from 'assets/img/like.svg';
 
 import styles from './PostP.module.scss';
 

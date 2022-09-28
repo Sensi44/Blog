@@ -2,19 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Spin } from 'antd';
+import { useDispatch } from 'react-redux';
 
-import { getPost } from '../../Api';
-import likeIcon from '../../assets/img/like.svg';
-import dateCorrector from '../../utils/dateCorrector';
+import { useAuth } from 'hooks/useAuth';
+import { getPost } from 'Api';
+import likeIcon from 'assets/img/like.svg';
+import dateCorrector from 'utils/dateCorrector';
+
 import {
   setLoading,
   setError,
   startLoading,
-} from '../../reducers/toolKitSlice';
+} from '../../store/slices/loadingSlice';
 import 'antd/dist/antd.min.css';
 import styles from '../PostPreview/PostP.module.scss';
 
-const Post = ({ loading, error, dispatch }) => {
+const Post = () => {
+  const dispatch = useDispatch();
+  const { loading, error } = useAuth();
   const { slug } = useParams();
   const [post, setPost] = useState({
     tagList: [],

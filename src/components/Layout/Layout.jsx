@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Offline } from 'react-detect-offline';
 
-import { Header } from '../Header';
+import { Header } from 'components/Header';
 import './Layout.scss';
 
 const Layout = () => (

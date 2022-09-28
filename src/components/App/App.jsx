@@ -1,22 +1,23 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { Layout } from '../Layout';
-import { SignUp } from '../SignUp';
-import { PostsBox, PostBox, SignUpBox } from '../../Containers/PostsBox';
+import { Posts } from 'components/Posts';
+import { Post } from 'components/Post';
+import { SignUp } from 'components/SignUp';
+import { Layout } from 'components/Layout';
 import './App.scss';
 
 function App() {
-  console.log('BLog-platform v2.2');
+  console.log('BLog-platform v3.0');
 
   return (
     <>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Navigate to='/posts' replace />} />
-          <Route path='posts/' element={<PostsBox />} />
-          <Route path='posts/:slug' element={<PostBox />} />
-          <Route path='sign-up' element={<SignUpBox />} />
+          <Route path='posts/' element={<Posts />} />
+          <Route path='posts/:slug' element={<Post />} />
+          <Route path='sign-up' element={<SignUp />} />
           <Route path='sign-in' element={<div>Логин</div>} />
           <Route path='profile' element={<div>Профиль</div>} />
         </Route>

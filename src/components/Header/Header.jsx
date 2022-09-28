@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { CustomLink } from '../CustomLink';
+import { CustomLink } from 'components/CustomLink';
 import './Header.scss';
 
 const Header = () => {

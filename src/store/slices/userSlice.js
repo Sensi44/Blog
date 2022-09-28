@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  loading: false,
-  error: '',
-  modalWindow: false,
+  email: null,
+  token: null,
+  id: null,
 };
 
-const ticketsSlice = createSlice({
-  name: 'toolkit',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     setLoading(state, action) {
@@ -26,7 +26,7 @@ const ticketsSlice = createSlice({
   },
 });
 
-const { actions, reducer } = ticketsSlice;
+const { actions, reducer } = userSlice;
 export const { setLoading, setError, startLoading, setModal } = actions;
 
 export default reducer;

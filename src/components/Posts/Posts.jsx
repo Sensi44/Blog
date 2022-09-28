@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Spin } from 'antd';
+import { useDispatch } from 'react-redux';
 
-import { Pages } from '../Pages';
-import { PostPreview } from '../PostPreview';
-import { getArticles } from '../../Api';
+import { Pages } from 'components/Pages';
+import { PostPreview } from 'components/PostPreview';
+import { getArticles } from 'Api';
+import { useAuth } from 'hooks/useAuth';
+
 import {
   setLoading,
   setError,
   startLoading,
-} from '../../reducers/toolKitSlice';
+} from '../../store/slices/loadingSlice';
 
 import './Posts.scss';
 import styles from './Posts.module.scss';
 
-const Posts = ({ loading, error, dispatch }) => {
+const Posts = () => {
+  const dispatch = useDispatch();
+  const { loading, error } = useAuth();
   const [posts, setPosts] = useState({ articles: [], articlesCount: 0 });
   const [page, setPage] = useState(0);
 
