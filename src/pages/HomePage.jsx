@@ -1,5 +1,8 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-const HomePage = (props) => <>HOME PAGE</>;
+const HomePage = () => {
+  return <Navigate to='/posts' />;
+};
 
 export { HomePage };

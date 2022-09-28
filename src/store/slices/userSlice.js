@@ -3,30 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   email: null,
   token: null,
-  id: null,
+  username: null,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setLoading(state, action) {
-      state.loading = action.payload;
-    },
-    setError(state, action) {
-      state.error = action.payload;
-    },
-    startLoading(state) {
-      state.loading = true;
-      state.error = '';
-    },
-    setModal(state, action) {
-      state.modalWindow = action.payload;
+    setUser(state, action) {
+      state.username = action.payload.username;
+      state.token = action.payload.token;
+      state.email = action.payload.email;
     },
   },
 });
 
 const { actions, reducer } = userSlice;
-export const { setLoading, setError, startLoading, setModal } = actions;
+export const { setUser } = actions;
 
 export default reducer;

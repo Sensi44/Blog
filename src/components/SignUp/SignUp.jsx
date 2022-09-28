@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { useAuth } from 'hooks/useAuth';
+import { useStore } from 'hooks/useStore';
 
 import { signUp } from '../../Api';
 import { setModal } from '../../store/slices/loadingSlice';
@@ -13,14 +13,13 @@ import './SignUp.scss';
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const { modalWindow } = useAuth();
+  const { modalWindow } = useStore();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  console.log(watch());
 
   const navigate = useNavigate();
 

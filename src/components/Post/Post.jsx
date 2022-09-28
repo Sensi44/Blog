@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 
-import { useAuth } from 'hooks/useAuth';
+import { useStore } from 'hooks/useStore';
 import { getPost } from 'Api';
 import likeIcon from 'assets/img/like.svg';
 import dateCorrector from 'utils/dateCorrector';
@@ -19,7 +19,7 @@ import styles from '../PostPreview/PostP.module.scss';
 
 const Post = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useAuth();
+  const { loading, error } = useStore();
   const { slug } = useParams();
   const [post, setPost] = useState({
     tagList: [],

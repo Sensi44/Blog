@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Pages } from 'components/Pages';
 import { PostPreview } from 'components/PostPreview';
 import { getArticles } from 'Api';
-import { useAuth } from 'hooks/useAuth';
+import { useStore } from 'hooks/useStore';
 
 import {
   setLoading,
@@ -18,7 +18,7 @@ import styles from './Posts.module.scss';
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useAuth();
+  const { loading, error } = useStore();
   const [posts, setPosts] = useState({ articles: [], articlesCount: 0 });
   const [page, setPage] = useState(0);
 
