@@ -6,12 +6,12 @@ import { useDispatch } from 'react-redux';
 import { useStore } from 'hooks/useStore';
 import { signIn } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
-import { setUser } from 'store/slices/userSlice';
+import { setUser, setError } from 'store/slices/userSlice';
 import styles from 'assets/css-modules/forms.module.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const { modalWindow } = useStore();
+  const { modalWindow, loginError } = useStore();
   const {
     register,
     handleSubmit,
@@ -29,12 +29,13 @@ const SignIn = () => {
       .then((res) => {
         dispatch(setUser(res.user));
         dispatch(setModal(true));
-        setTimeout(() => dispatch(setModal(false)), 1300);
-        setTimeout(redirect, 1500);
+        setTimeout(() => dispatch(setModal(false)), 1500);
+        setTimeout(redirect, 1700);
       })
       .catch((err) => {
         if (err.response.status === 422) {
-          alert(`${err}User is already registered`);
+          dispatch(setError(err.response.data.errors));
+          setTimeout(() => dispatch(setError(null)), 2000);
         }
       });
   };
@@ -45,6 +46,9 @@ const SignIn = () => {
         <h2 className={styles.title}>Sign In</h2>
         {modalWindow ? (
           <div className={styles.success}>Login Successful</div>
+        ) : null}
+        {loginError ? (
+          <div className={styles.loginError}>Incorrect login or password</div>
         ) : null}
 
         <label>

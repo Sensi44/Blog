@@ -9,10 +9,11 @@ import { signUp } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
 
 import './SignUp.scss';
+import { setError } from '../../store/slices/userSlice';
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const { modalWindow } = useStore();
+  const { modalWindow, loginError } = useStore();
   const {
     register,
     handleSubmit,
@@ -35,7 +36,8 @@ const SignUp = () => {
       })
       .catch((err) => {
         if (err.response.status === 422) {
-          alert('User is already registered');
+          dispatch(setError(err.response.data.errors));
+          setTimeout(() => dispatch(setError(null)), 2000);
         }
       });
   };
@@ -44,6 +46,12 @@ const SignUp = () => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={styles.title}>Create new account</h2>
         {modalWindow ? <div className={styles.success}>Success</div> : null}
+        {loginError?.username ? (
+          <div className={styles.loginError}>username is already taken</div>
+        ) : null}
+        {loginError?.email ? (
+          <div className={styles.loginError}>email is already taken</div>
+        ) : null}
         <label>
           <div className={styles.label}>Username</div>
           <input

@@ -178,9 +178,9 @@
   color: #8C8C8C;
 }
 
-.success {
+.success, .loginError {
   font-family: 'Roboto', serif;
-  width: 200px;
+  width: 250px;
   margin: auto;
   background-color: #52C41A;
   color: white;
@@ -188,5 +188,10 @@
   font-size: 16px;
   line-height: 22px;
   text-align: center;
+  padding: 5px;
   border-radius: 5px;
+}
+
+.loginError {
+  background-color: firebrick;
 }
