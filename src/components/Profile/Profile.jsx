@@ -1,50 +1,43 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
 import styles from 'assets/css-modules/forms.module.scss';
-import { signUp } from 'Api';
+import { editProfile } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
+import './Profile.scss';
 
-import './SignUp.scss';
-
-const SignUp = () => {
+const Profile = () => {
   const dispatch = useDispatch();
   const { modalWindow } = useStore();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
-
-  const redirect = () => {
-    navigate('/sign-in');
-  };
-
-  const onSubmit = ({ username, email, password }) => {
-    signUp(username, email, password)
+  const onSubmit = ({ username, email, password, URL }) => {
+    editProfile(username, email, password, URL)
       .then(() => {
         dispatch(setModal(true));
-        setTimeout(() => dispatch(setModal(false)), 1300);
-        setTimeout(redirect, 1500);
+        setTimeout(() => dispatch(setModal(false)), 2700);
       })
       .catch((err) => {
         if (err.response.status === 422) {
-          alert('User is already registered');
+          alert('Error changing user data');
         }
       });
   };
-  console.log(modalWindow);
+
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2 className={styles.title}>Create new account</h2>
-        {modalWindow ? <div className={styles.success}>Success</div> : null}
+        <h2 className={styles.title}>Edit Profile</h2>
+        {modalWindow ? (
+          <div className={styles.success}>changes applied successfully</div>
+        ) : null}
         <label>
           <div className={styles.label}>Username</div>
           <input
@@ -85,12 +78,12 @@ const SignUp = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Password</div>
+          <div className={styles.label}>New password</div>
           <input
             className={styles.input}
             autoComplete='on'
             type='password'
-            placeholder='Password'
+            placeholder='New password'
             {...register('password', {
               required: true,
               minLength: 6,
@@ -106,51 +99,16 @@ const SignUp = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Repeat Password</div>
+          <div className={styles.label}>Avatar image (url)</div>
           <input
             className={styles.input}
             autoComplete='on'
-            type='password'
-            placeholder='Password'
-            {...register('repeatPassword', {
-              required: true,
-              minLength: 6,
-              maxLength: 40,
-              pattern: /^[0-9A-Za-z]+$/i,
-            })}
+            type='url'
+            placeholder='Avatar image'
+            {...register('URL', {})}
           />
-          {errors.repeatPassword && (
-            <span className={styles.inputError}>
-              Your password needs to be at least 6 characters
-            </span>
-          )}
-          <div>
-            {watch('password') !== watch('repeatPassword') ? (
-              <span className={styles.inputError}>Passwords do not match</span>
-            ) : null}
-          </div>
+          {errors.URL && <span className={styles.inputError}>Bad picture</span>}
         </label>
-
-        <div className={styles.line}>
-          <label className='check option'>
-            <input
-              className='cp check__input'
-              type='checkbox'
-              {...register('check', {
-                required: true,
-              })}
-            />
-            <span className='check__box' />
-          </label>
-          <div className={styles.checkLabel}>
-            I agree to the processing of my personal information
-          </div>
-        </div>
-        {errors.check && (
-          <span className={styles.inputError}>
-            you must consent to the processing of personal data
-          </span>
-        )}
 
         <input type='submit' value='Create' className={styles.mainButton} />
         <div className={styles.replace}>
@@ -164,4 +122,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Profile;

@@ -32,7 +32,7 @@ const Header = () => {
           Регистрация
         </CustomLink>
         <CustomLink to='/sign-in' name='test-link'>
-          Вход
+          Login / SignIn
         </CustomLink>
         <CustomLink to='/profile' name='test-link'>
           Профиль
