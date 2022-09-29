@@ -39,7 +39,6 @@ const SignUp = () => {
         }
       });
   };
-  console.log(modalWindow);
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

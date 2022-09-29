@@ -1,13 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
 import styles from 'assets/css-modules/forms.module.scss';
 import { editProfile } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
-import './Profile.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -110,13 +108,7 @@ const Profile = () => {
           {errors.URL && <span className={styles.inputError}>Bad picture</span>}
         </label>
 
-        <input type='submit' value='Create' className={styles.mainButton} />
-        <div className={styles.replace}>
-          <span>Already have an account?</span>
-          <Link to='/sign-in' className={styles.link}>
-            Sign In.
-          </Link>
-        </div>
+        <input type='submit' value='Save' className={styles.mainButton2} />
       </form>
     </div>
   );
