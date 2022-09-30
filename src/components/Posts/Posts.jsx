@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useDispatch } from 'react-redux';
+import cookie from 'cookie_js';
 
 import { Pages } from 'components/Pages';
 import { PostPreview } from 'components/PostPreview';
-import { getArticles } from 'Api';
+import { getArticles, getCurrentUser } from 'Api';
 import { useStore } from 'hooks/useStore';
 
+import { setUser } from '../../store/slices/userSlice';
 import {
   setLoading,
   setError,
@@ -23,6 +25,20 @@ const Posts = () => {
   const [page, setPage] = useState(0);
 
   const changePage = (num) => setPage(num);
+
+  // Проверка авторизации
+  useEffect(() => {
+    if (cookie.get('user_token')) {
+      const token = cookie.get('user_token');
+      getCurrentUser(token)
+        .then((res) => {
+          dispatch(setUser(res.user));
+        })
+        .catch((err) => {
+          alert('failed to authorize user');
+        });
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(startLoading());
@@ -51,17 +67,19 @@ const Posts = () => {
         </div>
       ) : null}
 
-      <div>
-        {articles ? (
-          articles.map((post, index) => (
-            <div key={`post-${index}`} className={styles.post}>
-              <PostPreview post={post} />
-            </div>
-          ))
-        ) : (
-          <p>Постов нет</p>
-        )}
-      </div>
+      {loading || error ? null : (
+        <div>
+          {articles ? (
+            articles.map((post, index) => (
+              <div key={`post-${index}`} className={styles.post}>
+                <PostPreview post={post} />
+              </div>
+            ))
+          ) : (
+            <p>Постов нет</p>
+          )}
+        </div>
+      )}
 
       <Pages pages={articlesCount} changePage={changePage} />
     </>

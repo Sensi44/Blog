@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import cookie from 'cookie_js';
 
 import { useStore } from 'hooks/useStore';
 import { signIn } from 'Api';
@@ -27,6 +28,8 @@ const SignIn = () => {
   const onSubmit = ({ email, password }) => {
     signIn(email, password)
       .then((res) => {
+        console.log(res);
+        cookie.set('user_token', res.user.token, { expires: 11 });
         dispatch(setUser(res.user));
         dispatch(setModal(true));
         setTimeout(() => dispatch(setModal(false)), 1500);

@@ -75,7 +75,8 @@ const Post = () => {
           <p>Абонент недоступен или временно ананас</p>
           <p>{`"${error}"`}</p>
         </div>
-      ) : (
+      ) : null}
+      {loading || error ? null : (
         <div className={article}>
           <div className={articleInfo}>
             <div className={left}>

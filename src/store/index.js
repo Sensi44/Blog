@@ -9,10 +9,9 @@ const reducer = combineReducers({
 });
 
 const logger = () => (next) => (action) => {
-  console.log(`▬▬▬▬▬▬▬▬▬▬ ${action.type} ▬▬▬▬▬▬▬▬▬▬`);
+  console.log(`▬▬▬▬▬▬▬ ${action.type} ▬▬▬▬▬▬▬`);
   const result = next(action);
-  console.log(store.getState().user);
-  console.log(store.getState().loading);
+  console.log(store.getState());
   return result;
 };
 

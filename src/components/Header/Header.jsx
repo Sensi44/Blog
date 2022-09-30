@@ -1,43 +1,60 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import cookie from 'cookie_js';
 
-import { CustomLink } from 'components/CustomLink';
+import { setUser } from 'store/slices/userSlice';
+import { useStore } from 'hooks/useStore';
 import './Header.scss';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { isAuth, username, image } = useStore();
+  const handleLogOut = () => {
+    cookie.remove('user_token');
+    dispatch(
+      setUser({
+        email: null,
+        token: null,
+        username: null,
+        loginError: null,
+        image: null,
+      })
+    );
+  };
+
   return (
     <header>
       <Link to='/' className='to-home'>
         RealWorldBlog
       </Link>
-      <Link to='/sign-in' className='sign-in'>
-        Sign In
-      </Link>
-      <Link to='/sign-up' className='sign-up'>
-        Sign Up
-      </Link>
-
-      <div className='dev-navigation'>
-        Development Links
-        <CustomLink to='/' name='test-link'>
-          Home
-        </CustomLink>
-        <CustomLink to='/posts' name='test-link'>
-          posts
-        </CustomLink>
-        <CustomLink to='/posts/123-eka4vn' name='test-link'>
-          posts/123
-        </CustomLink>
-        <CustomLink to='/sign-up' name='test-link'>
-          Регистрация
-        </CustomLink>
-        <CustomLink to='/sign-in' name='test-link'>
-          Login / SignIn
-        </CustomLink>
-        <CustomLink to='/profile' name='test-link'>
-          Профиль
-        </CustomLink>
-      </div>
+      {isAuth ? (
+        <div className='auth'>
+          <Link to='/new-article' className='newArticle'>
+            Create article
+          </Link>
+          <Link to='/profile' className='profile'>
+            {
+              <div>
+                {username}
+                <img src={image} alt={`${username} avatar`} />
+              </div>
+            }
+          </Link>
+          <button className='logOut' onClick={handleLogOut}>
+            Log Out
+          </button>
+        </div>
+      ) : (
+        <div className='noAuth'>
+          <Link to='/sign-in' className='sign-in'>
+            Sign In
+          </Link>
+          <Link to='/sign-up' className='sign-up'>
+            Sign Up
+          </Link>
+        </div>
+      )}
     </header>
   );
 };
