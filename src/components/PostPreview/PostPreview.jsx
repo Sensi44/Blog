@@ -31,6 +31,7 @@ const PostPreview = ({ post }) => {
     title,
     tagList,
     author: { username, image },
+    favoritesCount,
   } = post;
 
   return (
@@ -41,7 +42,7 @@ const PostPreview = ({ post }) => {
             {title}
           </Link>
           <img src={likeIcon} className={like} alt='aaa' />
-          <span className={likeCount}>1</span>
+          <span className={likeCount}>{favoritesCount}</span>
         </div>
 
         <ul className={tags}>

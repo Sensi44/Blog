@@ -32,6 +32,7 @@ const Post = () => {
     title,
     tagList,
     author: { username, image },
+    favoritesCount,
   } = post;
 
   const {
@@ -88,8 +89,8 @@ const Post = () => {
                 <Link className={titleLink} to={`/posts/${slug}`}>
                   {title}
                 </Link>
-                <img src={likeIcon} className={like} alt='aaa' />
-                <span className={likeCount}>1</span>
+                <img src={likeIcon} className={like} alt='Like' />
+                <span className={likeCount}>{favoritesCount}</span>
               </div>
 
               <ul className={tags}>
