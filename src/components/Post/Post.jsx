@@ -19,7 +19,7 @@ import 'antd/dist/antd.min.css';
 
 const Post = () => {
   const dispatch = useDispatch();
-  const { loading, error, username: user } = useStore();
+  const { loading, error, username: user, token } = useStore();
   const { slug } = useParams();
   const [post, setPost] = useState({
     tagList: [],
@@ -62,13 +62,13 @@ const Post = () => {
 
   useEffect(() => {
     dispatch(startLoading());
-    getPost(slug)
+    getPost(slug, token)
       .then((res) => setPost(res.article))
       .catch((err) => dispatch(setError(err.message)))
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [slug, dispatch]);
+  }, [slug, dispatch, token]);
 
   return (
     <>

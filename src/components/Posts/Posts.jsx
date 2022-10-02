@@ -18,17 +18,15 @@ import styles from './Posts.module.scss';
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useStore();
+  const { loading, error, token } = useStore();
   const [posts, setPosts] = useState({ articles: [], articlesCount: 0 });
   const [page, setPage] = useState(0);
-
-  const changePage = (num) => setPage(num);
 
   useEffect(() => {
     dispatch(startLoading());
     const offset = (page > 0 ? page - 1 : 0) * 5;
 
-    getArticles(offset)
+    getArticles(offset, 5, token)
       .then((res) => setPosts(res))
       .catch((err) => {
         dispatch(setError(err.message));
@@ -36,7 +34,7 @@ const Posts = () => {
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [page, dispatch]);
+  }, [page, dispatch, token]);
 
   const { articles, articlesCount } = posts;
   return (
@@ -65,7 +63,7 @@ const Posts = () => {
         </div>
       )}
 
-      <Pages pages={articlesCount} changePage={changePage} />
+      <Pages pages={articlesCount} changePage={(num) => setPage(num)} />
     </>
   );
 };

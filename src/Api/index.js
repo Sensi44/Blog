@@ -2,15 +2,21 @@ import axios from 'axios';
 
 const baseURL = 'https://blog.kata.academy/api/';
 
-export function getArticles(offset, limit = 5) {
+export function getArticles(offset, limit = 5, token) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
   const apiUrl = `${baseURL}articles?limit=${limit}&offset=${offset}`;
-  const res = axios.get(apiUrl).then((resp) => resp.data);
+  const res = axios.get(apiUrl, config).then((resp) => resp.data);
   return res;
 }
 
-export function getPost(slug) {
+export function getPost(slug, token) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
   const apiUrl = `${baseURL}articles/${slug}`;
-  const res = axios.get(apiUrl).then((resp) => resp.data);
+  const res = axios.get(apiUrl, config).then((resp) => resp.data);
   return res;
 }
 
