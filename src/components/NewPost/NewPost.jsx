@@ -28,7 +28,22 @@ const NewPost = () => {
     setTags((prevState) => {
       console.log(prevState);
       // eslint-disable-next-line react/jsx-key
-      return [...prevState, <div>aaa</div>];
+      return [
+        ...prevState,
+        <div key={prevState.length + 2}>
+          <input
+            className={styles.input}
+            type='text'
+            placeholder='Title'
+            {...register(`title${prevState.length}`, {
+              required: true,
+              minLength: 3,
+              maxLength: 80,
+              pattern: /^[0-9A-Za-z]+$/i,
+            })}
+          />
+        </div>,
+      ];
     });
   };
   console.log(tags);
@@ -38,7 +53,8 @@ const NewPost = () => {
   //   navigate('/articles');
   // };
 
-  const onSubmit = ({ email, password }) => {
+  const onSubmit = ({ title, description, text, ...tagsArray }) => {
+    console.log(title, description, text, Object.values(tagsArray));
     // signIn(email, password)
     //   .then((res) => {
     //     console.log(res);
@@ -121,7 +137,9 @@ const NewPost = () => {
             </span>
           )}
         </label>
+
         {tags}
+
         <input
           type='button'
           value='Add Tag'
