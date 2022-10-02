@@ -6,20 +6,20 @@ import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
 import { getPost } from 'Api';
-import likeIcon from 'assets/img/like.svg';
 import dateCorrector from 'utils/dateCorrector';
+import likeIcon from 'assets/img/like.svg';
 
 import {
   setLoading,
   setError,
   startLoading,
 } from '../../store/slices/loadingSlice';
-import 'antd/dist/antd.min.css';
 import styles from '../PostPreview/PostP.module.scss';
+import 'antd/dist/antd.min.css';
 
 const Post = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useStore();
+  const { loading, error, username: user } = useStore();
   const { slug } = useParams();
   const [post, setPost] = useState({
     tagList: [],
@@ -50,9 +50,13 @@ const Post = () => {
     article,
     likeCount,
     articleBody,
+    editable,
     articleInfo,
     spin,
     loadingError,
+    rightTop,
+    btnDelete,
+    btnEdit,
   } = styles;
 
   useEffect(() => {
@@ -101,11 +105,25 @@ const Post = () => {
             </div>
 
             <div className={right}>
-              <div className={rightLeft}>
-                <div className={name}>{username}</div>
-                <time className={date}>{dateCorrector(createdAt)}</time>
+              <div className={rightTop}>
+                <div className={rightLeft}>
+                  <div className={name}>{username}</div>
+                  <time className={date}>{dateCorrector(createdAt)}</time>
+                </div>
+                <img
+                  src={image}
+                  className={avatar}
+                  alt={`${username} avatar`}
+                />
               </div>
-              <img src={image} className={avatar} alt={`${username} avatar`} />
+              {username === user ? (
+                <div className={editable}>
+                  <button className={btnDelete}>Delete</button>
+                  <Link to={`/articles/${slug}/edit`} className={btnEdit}>
+                    Edit
+                  </Link>
+                </div>
+              ) : null}
             </div>
           </div>
           <div className={articleBody}>

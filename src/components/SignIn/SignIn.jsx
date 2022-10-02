@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,7 @@ import styles from 'assets/css-modules/forms.module.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const { modalWindow, loginError } = useStore();
+  const { modalWindow, loginError, username } = useStore();
   const {
     register,
     handleSubmit,
@@ -21,8 +21,12 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (username) navigate('/articles');
+  });
+
   const redirect = () => {
-    navigate('/posts');
+    navigate('/articles');
   };
 
   const onSubmit = ({ email, password }) => {

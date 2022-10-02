@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const HomePage = () => {
-  return <Navigate to='/posts' />;
+  return <Navigate to='/articles' />;
 };
 
 export { HomePage };

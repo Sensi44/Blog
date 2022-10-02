@@ -102,12 +102,18 @@
 
 .right {
   display: flex;
+  flex-direction: column;
 }
 
 .rightLeft {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.rightTop {
+  display: flex;
+  margin-bottom: 30px;
 }
 
 .name {
@@ -136,6 +142,34 @@
   border-radius: 50%;
 }
 
+
+.editable {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.btnDelete, .btnEdit {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btnDelete {
+  color: #F5222D;
+  padding: 6px 17px 5.1px 17px;
+  border: 1px solid #F5222D;
+}
+
+.btnEdit {
+  color: #52C41A;
+  padding: 6px 19.23px 5.1px 19px;
+  border: 1px solid #52C41A;
+  margin-left: 12px;
+}
 
 .loadingError {
   border: 7px solid red;

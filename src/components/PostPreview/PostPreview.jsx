@@ -21,6 +21,7 @@ const PostPreview = ({ post }) => {
     leftTop,
     like,
     likeCount,
+    rightTop,
   } = styles;
 
   const {
@@ -36,7 +37,7 @@ const PostPreview = ({ post }) => {
     <>
       <div className={left}>
         <div className={leftTop}>
-          <Link className={titleLink} to={`/posts/${slug}`}>
+          <Link className={titleLink} to={`/articles/${slug}`}>
             {title}
           </Link>
           <img src={likeIcon} className={like} alt='aaa' />
@@ -56,11 +57,13 @@ const PostPreview = ({ post }) => {
       </div>
 
       <div className={right}>
-        <div className={rightLeft}>
-          <div className={name}>{username}</div>
-          <time className={date}>{dateCorrector(createdAt)}</time>
+        <div className={rightTop}>
+          <div className={rightLeft}>
+            <div className={name}>{username}</div>
+            <time className={date}>{dateCorrector(createdAt)}</time>
+          </div>
+          <img src={image} className={avatar} alt={`${username} avatar`} />
         </div>
-        <img src={image} className={avatar} alt={`${username} avatar`} />
       </div>
     </>
   );

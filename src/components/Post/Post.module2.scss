@@ -78,6 +78,12 @@
 
 .right {
   display: flex;
+  flex-direction: column;
+}
+
+.rightTop {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .rightLeft {

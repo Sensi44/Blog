@@ -7,8 +7,8 @@ import cookie from 'cookie_js';
 import { Header } from 'components/Header';
 
 import { setUser } from '../../store/slices/userSlice';
-import './Layout.scss';
 import { getCurrentUser } from '../../Api';
+import './Layout.scss';
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Layout = () => {
         })
         .catch(() => alert('failed to authorize user'));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='app'>

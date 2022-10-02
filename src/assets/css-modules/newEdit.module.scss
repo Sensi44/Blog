@@ -1,0 +1,55 @@
+.formSize {
+  width: 938px;
+}
+
+.button {
+  width: 319px;
+  margin-bottom: 0;
+}
+
+.textArea {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  padding: 7px 12px 0 12px;
+  font-family: 'Roboto', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.75);
+  min-height: 168px;
+  resize: none;
+}
+
+.textArea::-webkit-input-placeholder {color: #BFBFBF;}
+.textArea:-moz-placeholder {color: #BFBFBF;}
+
+.textArea::-moz-placeholder {
+  text-indent: 0; transition: text-indent 0.4s ease;
+}
+
+.textArea:-moz-placeholder {
+  text-indent: 0; transition: text-indent 0.4s ease;
+}
+
+.textArea:-ms-input-placeholder {
+  text-indent: 0; transition: text-indent 0.4s ease;
+}
+
+.textArea:focus::-webkit-input-placeholder {
+  text-indent: 400px; transition: text-indent 0.5s ease;
+}
+
+.textArea:focus::-moz-placeholder {
+  text-indent: 400px; transition: text-indent 0.5s ease;
+}
+
+.textArea:focus:-moz-placeholder {
+  text-indent: 400px; transition: text-indent 0.5s ease;
+}
+
+.input:focus:-ms-input-placeholder {
+  text-indent: 400px; transition: text-indent 0.5s ease;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ import { setError } from '../../store/slices/userSlice';
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const { modalWindow, loginError } = useStore();
+  const { modalWindow, loginError, isAuth } = useStore();
   const {
     register,
     handleSubmit,
@@ -22,6 +22,10 @@ const SignUp = () => {
   } = useForm();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) navigate('/articles');
+  });
 
   const redirect = () => {
     navigate('/sign-in');
@@ -52,6 +56,7 @@ const SignUp = () => {
         {loginError?.email ? (
           <div className={styles.loginError}>email is already taken</div>
         ) : null}
+
         <label>
           <div className={styles.label}>Username</div>
           <input
