@@ -107,7 +107,7 @@ const NewPost = () => {
               required: true,
               minLength: 3,
               maxLength: 80,
-              pattern: /^[0-9A-Za-z]+$/i,
+              pattern: /^[0-9A-Za-zА-Яа-я\s]+$/gi,
             })}
           />
           {errors.title && (
@@ -125,7 +125,7 @@ const NewPost = () => {
               required: true,
               minLength: 3,
               maxLength: 80,
-              pattern: /^[0-9A-Za-z]+$/i,
+              pattern: /^[0-9A-Za-zА-Яа-я\s]+$/i,
             })}
           />
           {errors.description && (
