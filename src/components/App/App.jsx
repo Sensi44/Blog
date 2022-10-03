@@ -13,14 +13,14 @@ import { CustomLink } from 'components/CustomLink';
 import './App.scss';
 
 function App() {
-  console.log('BLog-platform v3.0');
+  console.log('BLog-platform v2.2.4');
   return (
     <>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path='articles/' element={<Posts />} />
-          <Route path='articles/page-:1' element={<div>with page</div>} />
+          <Route path='articles/page-:p' element={<Posts />} />
           <Route path='articles/:slug' element={<Post />} />
           <Route path='articles/:slug/edit' element={<div>Edit Post</div>} />
           <Route path='sign-up' element={<SignUp />} />
