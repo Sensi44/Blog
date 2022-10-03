@@ -13,7 +13,7 @@ import { CustomLink } from 'components/CustomLink';
 import './App.scss';
 
 function App() {
-  console.log('BLog-platform v2.3.1');
+  console.log('BLog-platform v2.3.2');
   return (
     <>
       <Routes>

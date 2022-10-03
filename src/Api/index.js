@@ -88,3 +88,13 @@ export function createArticle(token, title, description, text, tagList) {
     .then((resp) => resp.data);
   return res;
 }
+
+export function deleteArticle(token, slug) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const res = axios
+    .delete(`${baseURL}articles/${slug}`, config)
+    .then((resp) => resp.data);
+  return res;
+}
