@@ -9,7 +9,7 @@ import { setModal } from 'store/slices/loadingSlice';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { modalWindow } = useStore();
+  const { modalWindow, token } = useStore();
   const {
     register,
     handleSubmit,
@@ -17,7 +17,7 @@ const Profile = () => {
   } = useForm();
 
   const onSubmit = ({ username, email, password, URL }) => {
-    editProfile(username, email, password, URL)
+    editProfile(token, username, email, password, URL)
       .then(() => {
         dispatch(setModal(true));
         setTimeout(() => dispatch(setModal(false)), 2700);

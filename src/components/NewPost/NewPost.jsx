@@ -1,89 +1,100 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import cookie from 'cookie_js';
 
 import { useStore } from 'hooks/useStore';
-import { signIn } from 'Api';
+import { NewTag } from 'components/NewTag';
+import { createArticle } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
-import { setUser, setError } from 'store/slices/userSlice';
+import { setError } from 'store/slices/userSlice';
 import styles from 'assets/css-modules/forms.module.scss';
 import stylesAdd from 'assets/css-modules/newEdit.module.scss';
 
 const NewPost = () => {
-  const [tags, setTags] = useState([]);
-  const dispatch = useDispatch();
-  const { modalWindow, loginError } = useStore();
+  const navigate = useNavigate();
+  const { modalWindow, loginError, token, username } = useStore();
+  const [count, setCount] = useState(2);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
-  console.log(watch());
-
-  const testAddTag = () => {
+  const deleteTag = (id) => {
     setTags((prevState) => {
-      console.log(prevState);
-      // eslint-disable-next-line react/jsx-key
+      if (prevState.length === 1) {
+        return [...prevState];
+      }
+      const temp = prevState;
+      const result = temp.filter((elem) => {
+        console.log(elem.id, id);
+        return elem.id !== id;
+      });
+      return [...result];
+    });
+  };
+
+  const addTag = () => {
+    setCount(count + 1);
+    setTags((prevState) => {
       return [
         ...prevState,
-        <div key={prevState.length + 2}>
-          <input
-            className={styles.input}
-            type='text'
-            placeholder='Title'
-            {...register(`title${prevState.length}`, {
-              required: true,
-              minLength: 3,
-              maxLength: 80,
-              pattern: /^[0-9A-Za-z]+$/i,
-            })}
-          />
-        </div>,
+        {
+          key: count,
+          title: `tag${count}`,
+          last: true,
+          id: count,
+          required: false,
+        },
       ];
     });
   };
-  console.log(tags);
-  const navigate = useNavigate();
 
-  // const redirect = () => {
-  //   navigate('/articles');
-  // };
+  const [tags, setTags] = useState([
+    { key: 1, title: `tag${1}`, last: true, id: 1, required: true },
+  ]);
+
+  const dispatch = useDispatch();
+
+  const redirect = () => {
+    navigate('/articles');
+  };
 
   const onSubmit = ({ title, description, text, ...tagsArray }) => {
     console.log(title, description, text, Object.values(tagsArray));
-    // signIn(email, password)
-    //   .then((res) => {
-    //     console.log(res);
-    //     cookie.set('user_token', res.user.token, { expires: 11 });
-    //     dispatch(setUser(res.user));
-    //     dispatch(setModal(true));
-    //     setTimeout(() => dispatch(setModal(false)), 1500);
-    //     setTimeout(redirect, 1700);
-    //   })
-    //   .catch((err) => {
-    //     if (err.response.status === 422) {
-    //       dispatch(setError(err.response.data.errors));
-    //       setTimeout(() => dispatch(setError(null)), 2000);
-    //     }
-    //   });
+    createArticle(token, title, description, text, Object.values(tagsArray))
+      .then((res) => {
+        console.log(res);
+        dispatch(setModal(true));
+        setTimeout(() => dispatch(setModal(false)), 1500);
+        setTimeout(redirect, 1700);
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          dispatch(setError(err.response.data.errors));
+          setTimeout(() => dispatch(setError(null)), 2000);
+        }
+      });
   };
 
+  useEffect(() => {
+    if (!username) navigate('/sign-in');
+  });
+
+  console.table(tags);
   return (
-    <div className={styles.formContainer}>
+    <div className={`${styles.formContainer} ${stylesAdd.formContainer}`}>
       <form
         className={`${styles.form} ${stylesAdd.formSize}`}
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className={styles.title}>Create new article</h2>
         {modalWindow ? (
-          <div className={styles.success}>Login Successful</div>
+          <div className={styles.success}>Article created</div>
         ) : null}
         {loginError ? (
-          <div className={styles.loginError}>Incorrect login or password</div>
+          <div className={styles.loginError}>Article was not created</div>
         ) : null}
 
         <label>
@@ -138,14 +149,24 @@ const NewPost = () => {
           )}
         </label>
 
-        {tags}
-
-        <input
-          type='button'
-          value='Add Tag'
-          onClick={testAddTag}
-          className={`${styles.mainButton} ${stylesAdd.button}`}
-        />
+        <div className={stylesAdd.tags}>
+          <div className={styles.label}>Tags</div>
+          {tags.map((elem, index) => {
+            elem.last = index === tags.length - 1;
+            return (
+              <NewTag
+                key={elem.key}
+                title={elem.title}
+                addTag={addTag}
+                register={register}
+                deleteTag={deleteTag}
+                last={elem.last}
+                id={elem.id}
+                errors={errors}
+              />
+            );
+          })}
+        </div>
 
         <input
           type='submit'

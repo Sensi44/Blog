@@ -45,7 +45,7 @@ export function signIn(email, password) {
   return res;
 }
 
-export function editProfile(username, email, password, image, token) {
+export function editProfile(token, username, email, password, image) {
   const data = {
     user: {
       username,
@@ -68,5 +68,23 @@ export function getCurrentUser(token) {
     headers: { Authorization: `Bearer ${token}` },
   };
   const res = axios.get(`${baseURL}user/`, config).then((resp) => resp.data);
+  return res;
+}
+
+export function createArticle(token, title, description, text, tagList) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const data = {
+    article: {
+      title,
+      description,
+      body: text,
+      tagList,
+    },
+  };
+  const res = axios
+    .post(`${baseURL}articles/`, data, config)
+    .then((resp) => resp.data);
   return res;
 }

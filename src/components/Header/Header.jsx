@@ -37,7 +37,7 @@ const Header = () => {
             {
               <div>
                 {username}
-                <img src={image} alt={`${username} avatar`} />
+                {image ? <img src={image} alt={`${username} avatar`} /> : null}
               </div>
             }
           </Link>

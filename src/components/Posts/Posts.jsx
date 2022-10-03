@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 
@@ -19,15 +19,13 @@ import styles from './Posts.module.scss';
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { p = 0 } = useParams();
-  const navigate = useNavigate();
+  const { p: page = 0 } = useParams();
   const { loading, error, token } = useStore();
   const [posts, setPosts] = useState({ articles: [], articlesCount: 0 });
-  // const [page, setPage] = useState(0);
 
   useEffect(() => {
     dispatch(startLoading());
-    const offset = (p > 0 ? p - 1 : 0) * 5;
+    const offset = (page > 0 ? page - 1 : 0) * 5;
 
     getArticles(offset, 5, token)
       .then((res) => setPosts(res))
@@ -37,7 +35,7 @@ const Posts = () => {
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [p, dispatch, token]);
+  }, [page, dispatch, token]);
 
   const { articles, articlesCount } = posts;
   return (
@@ -65,11 +63,7 @@ const Posts = () => {
           )}
         </div>
       )}
-
-      <Pages
-        pages={articlesCount}
-        changePage={(num) => navigate(`/articles/page-${num}`)}
-      />
+      <Pages pages={articlesCount} current={page === 0 ? 1 : +page} />
     </>
   );
 };

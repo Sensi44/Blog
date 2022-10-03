@@ -1,11 +1,17 @@
 .formSize {
   width: 938px;
+  min-height: 639px;
+}
+
+.formContainer {
+  margin-bottom: 45px;
 }
 
 .button {
   width: 319px;
   margin-bottom: 0;
 }
+
 
 .textArea {
   width: 100%;
@@ -25,6 +31,11 @@
 
 .textArea::-webkit-input-placeholder {color: #BFBFBF;}
 .textArea:-moz-placeholder {color: #BFBFBF;}
+
+.textArea:focus-visible {
+  outline: none;
+  border: 1px solid #1890FF;
+}
 
 .textArea::-moz-placeholder {
   text-indent: 0; transition: text-indent 0.4s ease;
@@ -52,4 +63,76 @@
 
 .input:focus:-ms-input-placeholder {
   text-indent: 400px; transition: text-indent 0.5s ease;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+}
+
+.addTagButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 136px;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 40px;
+  margin-bottom: 0;
+  background: #FFFFFF;
+  font-family: 'Roboto', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1890FF;
+  cursor: pointer;
+  border: 1px solid #1890FF;
+  border-radius: 4px;
+}
+
+.addTagButton:focus-visible {
+  outline: 1px solid #1890FF;
+}
+
+.tagInput {
+  width: 300px;
+}
+
+.inputsContainer {
+  display: flex;
+}
+
+.newTagContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+
+.newTagContainer:first-child {
+  margin-top: 0;
+}
+
+.deleteBtn {
+  margin: 0 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 36px;
+  background: #FFFFFF;
+  font-family: 'Roboto', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #F5222D;
+  cursor: pointer;
+  border: 1px solid #F5222D;
+  border-radius: 4px;
+}
+
+.deleteBtn:focus-visible {
+  outline: 1px solid #1890FF;
 }
