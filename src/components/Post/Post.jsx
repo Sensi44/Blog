@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
-import { getPost, deleteArticle } from 'Api';
+import { getPost } from 'Api';
+import { Modal } from 'pages/Modal';
 import dateCorrector from 'utils/dateCorrector';
 import likeIcon from 'assets/img/like.svg';
 
@@ -13,14 +14,14 @@ import {
   setLoading,
   setError,
   startLoading,
+  setModal,
 } from '../../store/slices/loadingSlice';
 import styles from '../PostPreview/PostP.module.scss';
 import 'antd/dist/antd.min.css';
 
 const Post = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { loading, error, username: user, token } = useStore();
+  const { loading, error, username: user, token, modalWindow } = useStore();
   const { slug } = useParams();
   const [post, setPost] = useState({
     tagList: [],
@@ -61,14 +62,8 @@ const Post = () => {
     btnEdit,
   } = styles;
 
-  const handleDeleteArticle = () => {
-    console.log('delete article');
-    deleteArticle(token, slug)
-      .then((res) => {
-        console.log(res);
-        navigate('/articles');
-      })
-      .catch((err) => console.log(err));
+  const handleModal = () => {
+    dispatch(setModal(true));
   };
 
   useEffect(() => {
@@ -130,12 +125,13 @@ const Post = () => {
               </div>
               {username === user ? (
                 <div className={editable}>
-                  <button className={btnDelete} onClick={handleDeleteArticle}>
+                  <button className={btnDelete} onClick={handleModal}>
                     Delete
                   </button>
                   <Link to={`/articles/${slug}/edit`} className={btnEdit}>
                     Edit
                   </Link>
+                  {modalWindow ? <Modal slug={slug} /> : null}
                 </div>
               ) : null}
             </div>

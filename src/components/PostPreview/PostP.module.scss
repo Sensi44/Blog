@@ -147,7 +147,9 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  position: relative;
 }
+
 .btnDelete, .btnEdit {
   font-style: normal;
   font-weight: 400;
@@ -169,6 +171,15 @@
   padding: 6px 19.23px 5.1px 19px;
   border: 1px solid #52C41A;
   margin-left: 12px;
+}
+
+.btnEdit:focus-visible {
+  outline: none;
+  border: 1px solid #1890FF;
+}
+
+.btnEdit:hover {
+  color: #52C41A;
 }
 
 .loadingError {
@@ -193,3 +204,88 @@
 .spin {
   margin-top: 150px;
 }
+
+.modal {
+  position: absolute;
+  top: 0;
+  right: -168.3px;
+  width: 240px;
+  height: 104px;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding: 12px 16px 12px 17px;
+}
+
+.sign {
+  width: 14.71px;
+  height: 14px;
+  position: relative;
+  top: 3px;
+  background-image: url('../../assets/img/exclamation.svg');
+  margin-right: 9px;
+}
+
+.modalTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.modalBot {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.topText {
+  width: 184px;
+  font-family: 'Roboto', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #595959;
+}
+
+.btnConfirm, .btnDecline {
+  font-family: 'Roboto', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 24px;
+  padding: 1px 8px 1px 8px;
+}
+
+
+.btnDecline {
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+}
+
+.btnDecline:hover {
+  background: #F0F0F0;
+}
+
+.btnConfirm {
+  background: #1890FF;
+  border: 1px solid transparent;
+  color: #FFFFFF;
+  margin-left: 8px;
+}
+
+.btnConfirm:hover {
+  background: #0A6CFF;
+  border: 1px solid transparent;
+}
+
+
+
+
+
+
+

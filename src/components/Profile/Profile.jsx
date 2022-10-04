@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
@@ -9,15 +9,21 @@ import { setModal } from 'store/slices/loadingSlice';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { modalWindow, token } = useStore();
+  const { modalWindow, token, username, email, image } = useStore();
+  const defaultValues = {
+    username,
+    email,
+    password: '',
+    URL: image,
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
-  const onSubmit = ({ username, email, password, URL }) => {
-    editProfile(token, username, email, password, URL)
+  const onSubmit = ({ user, mail, password, URL }) => {
+    editProfile(token, user, mail, password, URL)
       .then(() => {
         dispatch(setModal(true));
         setTimeout(() => dispatch(setModal(false)), 2700);
