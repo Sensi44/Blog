@@ -7,6 +7,7 @@ import { SignUp } from 'components/SignUp';
 import { SignIn } from 'components/SignIn';
 import { Profile } from 'components/Profile';
 import { NewPost } from 'components/NewPost';
+import { EditPost } from 'components/EditPost';
 import { Layout } from 'components/Layout';
 import { HomePage } from 'pages/HomePage';
 import { CustomLink } from 'components/CustomLink';
@@ -22,7 +23,7 @@ function App() {
           <Route path='articles/' element={<Posts />} />
           <Route path='articles/page-:p' element={<Posts />} />
           <Route path='articles/:slug' element={<Post />} />
-          <Route path='articles/:slug/edit' element={<div>Edit Post</div>} />
+          <Route path='articles/:slug/edit' element={<EditPost />} />
           <Route path='sign-up' element={<SignUp />} />
           <Route path='sign-in' element={<SignIn />} />
           <Route path='profile' element={<Profile />} />
@@ -52,6 +53,9 @@ function App() {
           </CustomLink>
           <CustomLink to='/profile' name='test-link'>
             Профиль
+          </CustomLink>
+          <CustomLink to='articles/eshe-anekdot-g6lo4l/edit' name='test-link'>
+            Ред. пост
           </CustomLink>
         </div>
       </div>
