@@ -32,7 +32,6 @@ const SignIn = () => {
   const onSubmit = ({ email, password }) => {
     signIn(email, password)
       .then((res) => {
-        console.log(res);
         cookie.set('user_token', res.user.token, { expires: 11 });
         dispatch(setUser(res.user));
         dispatch(setModal(true));

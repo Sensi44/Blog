@@ -1,7 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  article: undefined,
+  article: {
+    createdAt: '',
+    description: '',
+    title: '',
+    tagList: [],
+    body: '',
+    author: { username: '', image: '' },
+    favoritesCount: 0,
+    favorited: 0,
+  },
 };
 
 const userSlice = createSlice({

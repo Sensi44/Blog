@@ -67,8 +67,7 @@ const NewPost = () => {
   const onSubmit = ({ title, description, text, ...tagsArray }) => {
     console.log(title, description, text, Object.values(tagsArray));
     createArticle(token, title, description, text, Object.values(tagsArray))
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         dispatch(setModal(true));
         setTimeout(() => dispatch(setModal(false)), 1500);
         setTimeout(redirect, 1700);
@@ -85,8 +84,6 @@ const NewPost = () => {
     if (!username) navigate('/sign-in');
   });
 
-  console.log(tags);
-  console.log(watch());
   return (
     <div className={`${styles.formContainer} ${stylesAdd.formContainer}`}>
       <form

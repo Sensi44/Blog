@@ -118,8 +118,6 @@ export function editArticle(token, slug, title, description, text, tagList) {
 }
 
 export function likeArticle(token, slug) {
-  console.log(token);
-  console.log(slug);
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };

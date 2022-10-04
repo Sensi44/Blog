@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import { Spin } from 'antd';
 import { useDispatch } from 'react-redux';
+import { Spin } from 'antd';
+import ReactMarkdown from 'react-markdown';
 
-import { useStore } from 'hooks/useStore';
 import { dislikeArticle, getPost, likeArticle } from 'Api';
+import { useStore } from 'hooks/useStore';
 import { Modal } from 'pages/Modal';
 import dateCorrector from 'utils/dateCorrector';
 import { setArticle } from 'store/slices/articleSlice';
@@ -28,77 +28,31 @@ const Post = () => {
     username: user,
     token,
     modalWindow,
-    article: art = {
-      createdAt: '',
-      description: '',
-      title: '',
-      tagList: [],
-      author: { username: '', image: '' },
-      favoritesCount: 0,
-      favorited: 0,
+    article: {
+      createdAt,
+      description,
+      title,
+      tagList,
+      body,
+      author: { username, image },
+      favoritesCount,
+      favorited,
     },
   } = useStore();
-
-  const {
-    createdAt,
-    description,
-    title,
-    tagList,
-    author: { username, image },
-    favoritesCount,
-    favorited,
-  } = art;
-
-  const {
-    titleLink,
-    left,
-    right,
-    tags,
-    tag,
-    preview,
-    date,
-    rightLeft,
-    avatar,
-    name,
-    leftTop,
-    like,
-    dislike,
-    article,
-    likeCount,
-    articleBody,
-    editable,
-    articleInfo,
-    spin,
-    loadingError,
-    rightTop,
-    btnDelete,
-    btnEdit,
-  } = styles;
-
-  const [likeArt, setLikeArt] = useState(favorited);
-  const [likeNum, setLikeNum] = useState(favoritesCount);
 
   const handleModal = () => {
     dispatch(setModal(true));
   };
 
   const handleLike = () => {
-    if (likeArt) {
+    if (favorited) {
       dislikeArticle(token, slug).then((res) => {
-        setLikeArt(!likeArt);
-        setLikeNum(likeNum - 1);
-        // dispatch(setArticle(res.article));
-        // setLikeArt(!likeArt);
-        // setLikeNum(likeNum - 1);
+        dispatch(setArticle(res.article));
       });
     }
-    if (!likeArt) {
+    if (!favorited) {
       likeArticle(token, slug).then((res) => {
-        setLikeArt(!likeArt);
-        setLikeNum(likeNum + 1);
-        // dispatch(setArticle(res.article));
-        // setLikeArt(!likeArt);
-        // setLikeNum(likeNum + 1);
+        dispatch(setArticle(res.article));
       });
     }
   };
@@ -112,64 +66,69 @@ const Post = () => {
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [slug, dispatch, token, favorited, favoritesCount]);
+  }, [slug, dispatch, token]);
 
   return (
     <>
-      {loading ? <Spin size='large' className={spin} /> : null}
+      {loading ? <Spin size='large' className={styles.spin} /> : null}
 
       {error ? (
-        <div className={loadingError}>
+        <div className={styles.loadingError}>
           <p>Во время загрузки данных произошла ошибка</p>
           <p>Абонент недоступен или временно ананас</p>
           <p>{`"${error}"`}</p>
         </div>
       ) : null}
       {loading || error ? null : (
-        <div className={article}>
-          <div className={articleInfo}>
-            <div className={left}>
-              <div className={leftTop}>
-                <Link className={titleLink} to={`/posts/${slug}`}>
+        <div className={styles.article}>
+          <div className={styles.articleInfo}>
+            <div className={styles.left}>
+              <div className={styles.leftTop}>
+                <Link className={styles.titleLink} to={`/posts/${slug}`}>
                   {title}
                 </Link>
                 <button
                   onClick={handleLike}
-                  className={likeArt ? dislike : like}
+                  className={favorited ? styles.dislike : styles.like}
                 />
-                <span className={likeCount}>{likeNum}</span>
+                <span className={styles.likeCount}>{favoritesCount}</span>
               </div>
 
-              <ul className={tags}>
+              <ul className={styles.tags}>
                 {tagList.length
                   ? tagList.map((element, index) => (
-                      <li className={tag} key={`tag-${index}`}>
+                      <li className={styles.tag} key={`tag-${index}`}>
                         {element}
                       </li>
                     ))
                   : null}
               </ul>
-              <p className={preview}>{description}</p>
+              <p className={styles.preview}>{description}</p>
             </div>
 
-            <div className={right}>
-              <div className={rightTop}>
-                <div className={rightLeft}>
-                  <div className={name}>{username}</div>
-                  <time className={date}>{dateCorrector(createdAt)}</time>
+            <div className={styles.right}>
+              <div className={styles.rightTop}>
+                <div className={styles.rightLeft}>
+                  <div className={styles.name}>{username}</div>
+                  <time className={styles.date}>
+                    {dateCorrector(createdAt)}
+                  </time>
                 </div>
                 <img
                   src={image}
-                  className={avatar}
+                  className={styles.avatar}
                   alt={`${username} avatar`}
                 />
               </div>
               {username === user ? (
-                <div className={editable}>
-                  <button className={btnDelete} onClick={handleModal}>
+                <div className={styles.editable}>
+                  <button className={styles.btnDelete} onClick={handleModal}>
                     Delete
                   </button>
-                  <Link to={`/articles/${slug}/edit`} className={btnEdit}>
+                  <Link
+                    to={`/articles/${slug}/edit`}
+                    className={styles.btnEdit}
+                  >
                     Edit
                   </Link>
                   {modalWindow ? <Modal slug={slug} /> : null}
@@ -177,8 +136,8 @@ const Post = () => {
               ) : null}
             </div>
           </div>
-          <div className={articleBody}>
-            <ReactMarkdown>{art.body}</ReactMarkdown>
+          <div className={styles.articleBody}>
+            <ReactMarkdown>{body}</ReactMarkdown>
           </div>
         </div>
       )}
