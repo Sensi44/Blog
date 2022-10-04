@@ -3,15 +3,15 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
+import { useStore } from 'hooks/useStore';
 import { editArticle, getPost } from 'Api';
-import { setLoading, setModal, startLoading } from 'store/slices/loadingSlice';
-import { setError } from 'store/slices/userSlice';
-import { setArticle } from 'store/slices/articleSlice';
-import styles from 'assets/css-modules/forms.module.scss';
-import stylesAdd from 'assets/css-modules/newEdit.module.scss';
 import { getTagsValue, getTagList } from 'utils/tagsReduce';
+import { setLoading, setModal, startLoading } from 'store/slices/loadingSlice';
+import { setArticle } from 'store/slices/articleSlice';
+import { setError } from 'store/slices/userSlice';
+import stylesAdd from 'assets/css-modules/newEdit.module.scss';
+import styles from 'assets/css-modules/forms.module.scss';
 
 const EditPost = () => {
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ const EditPost = () => {
   const [tags, setTags] = useState(getTagList(article.tagList));
   const [count, setCount] = useState(25);
   const [defaultValues] = useState(getTagsValue(article));
-
   const {
     register,
     unregister,
@@ -47,7 +46,6 @@ const EditPost = () => {
       }
       const temp = prevState;
       const result = temp.filter((elem) => {
-        console.log(elem.id, id);
         return elem.id !== id;
       });
       return [...result];

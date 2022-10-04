@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import cookie from 'cookie_js';
 
-import { setUser } from 'store/slices/userSlice';
 import { useStore } from 'hooks/useStore';
+import { setUser } from 'store/slices/userSlice';
 import './Header.scss';
 
 const Header = () => {
   const dispatch = useDispatch();
   const { isAuth, username, image } = useStore();
+
   const handleLogOut = () => {
     cookie.remove('user_token');
     dispatch(
@@ -28,6 +29,7 @@ const Header = () => {
       <Link to='/' className='to-home'>
         RealWorldBlog
       </Link>
+
       {isAuth ? (
         <div className='auth'>
           <Link to='/new-article' className='newArticle'>

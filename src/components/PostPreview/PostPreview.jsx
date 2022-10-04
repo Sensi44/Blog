@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import dateCorrector from 'utils/dateCorrector';
 import { likeArticle, dislikeArticle } from 'Api';
-
-import { useStore } from '../../hooks/useStore';
+import dateCorrector from 'utils/dateCorrector';
+import { useStore } from 'hooks/useStore';
 
 import styles from './PostP.module.scss';
 
