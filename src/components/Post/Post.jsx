@@ -5,10 +5,10 @@ import { Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
-import { getPost } from 'Api';
+import { dislikeArticle, getPost, likeArticle } from 'Api';
 import { Modal } from 'pages/Modal';
 import dateCorrector from 'utils/dateCorrector';
-import likeIcon from 'assets/img/like.svg';
+import { setArticle } from 'store/slices/articleSlice';
 
 import {
   setLoading,
@@ -21,12 +21,23 @@ import 'antd/dist/antd.min.css';
 
 const Post = () => {
   const dispatch = useDispatch();
-  const { loading, error, username: user, token, modalWindow } = useStore();
   const { slug } = useParams();
-  const [post, setPost] = useState({
-    tagList: [],
-    author: {},
-  });
+  const {
+    loading,
+    error,
+    username: user,
+    token,
+    modalWindow,
+    article: art = {
+      createdAt: '',
+      description: '',
+      title: '',
+      tagList: [],
+      author: { username: '', image: '' },
+      favoritesCount: 0,
+      favorited: 0,
+    },
+  } = useStore();
 
   const {
     createdAt,
@@ -35,7 +46,8 @@ const Post = () => {
     tagList,
     author: { username, image },
     favoritesCount,
-  } = post;
+    favorited,
+  } = art;
 
   const {
     titleLink,
@@ -50,6 +62,7 @@ const Post = () => {
     name,
     leftTop,
     like,
+    dislike,
     article,
     likeCount,
     articleBody,
@@ -62,19 +75,44 @@ const Post = () => {
     btnEdit,
   } = styles;
 
+  const [likeArt, setLikeArt] = useState(favorited);
+  const [likeNum, setLikeNum] = useState(favoritesCount);
+
   const handleModal = () => {
     dispatch(setModal(true));
+  };
+
+  const handleLike = () => {
+    if (likeArt) {
+      dislikeArticle(token, slug).then((res) => {
+        setLikeArt(!likeArt);
+        setLikeNum(likeNum - 1);
+        // dispatch(setArticle(res.article));
+        // setLikeArt(!likeArt);
+        // setLikeNum(likeNum - 1);
+      });
+    }
+    if (!likeArt) {
+      likeArticle(token, slug).then((res) => {
+        setLikeArt(!likeArt);
+        setLikeNum(likeNum + 1);
+        // dispatch(setArticle(res.article));
+        // setLikeArt(!likeArt);
+        // setLikeNum(likeNum + 1);
+      });
+    }
   };
 
   useEffect(() => {
     dispatch(startLoading());
     getPost(slug, token)
-      .then((res) => setPost(res.article))
+      // .then((res) => setPost(res.article))
+      .then((res) => dispatch(setArticle(res.article)))
       .catch((err) => dispatch(setError(err.message)))
       .finally(() => {
         dispatch(setLoading(false));
       });
-  }, [slug, dispatch, token]);
+  }, [slug, dispatch, token, favorited, favoritesCount]);
 
   return (
     <>
@@ -95,8 +133,11 @@ const Post = () => {
                 <Link className={titleLink} to={`/posts/${slug}`}>
                   {title}
                 </Link>
-                <img src={likeIcon} className={like} alt='Like' />
-                <span className={likeCount}>{favoritesCount}</span>
+                <button
+                  onClick={handleLike}
+                  className={likeArt ? dislike : like}
+                />
+                <span className={likeCount}>{likeNum}</span>
               </div>
 
               <ul className={tags}>
@@ -137,7 +178,7 @@ const Post = () => {
             </div>
           </div>
           <div className={articleBody}>
-            <ReactMarkdown>{post.body}</ReactMarkdown>
+            <ReactMarkdown>{art.body}</ReactMarkdown>
           </div>
         </div>
       )}

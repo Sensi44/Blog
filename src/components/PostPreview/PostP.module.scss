@@ -43,13 +43,24 @@
   align-items: center;
 }
 
-.like {
+.like, .dislike {
   width: 16px;
-  height: 15.5px;
-  background-image: url("../../assets/img/like.svg");
+  height: 16px;
+  background-image: url("../../assets/img/like.png");
   background-size: auto;
+  background-position: center center;
+  background-color: #FFFFFF;
   margin-right: 5px;
   cursor: pointer;
+  border: none;
+}
+
+.like {
+  background-image: url("../../assets/img/like.png");
+}
+
+.dislike {
+  background: url("../../assets/img/dislike.svg") no-repeat;
 }
 
 .likeCount {

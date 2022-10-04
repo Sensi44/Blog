@@ -5,12 +5,14 @@ export function useStore() {
     (state) => state.user
   );
   const { loading, error, modalWindow } = useSelector((state) => state.loading);
+  const { article } = useSelector((state) => state.article);
 
   return {
     isAuth: !!username,
     email,
     image,
     token,
+    article,
     loginError,
     username,
     loading,

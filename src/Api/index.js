@@ -98,3 +98,45 @@ export function deleteArticle(token, slug) {
     .then((resp) => resp.data);
   return res;
 }
+
+export function editArticle(token, slug, title, description, text, tagList) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const data = {
+    article: {
+      title,
+      description,
+      body: text,
+      tagList,
+    },
+  };
+  const res = axios
+    .put(`${baseURL}articles/${slug}/`, data, config)
+    .then((resp) => resp.data);
+  return res;
+}
+
+export function likeArticle(token, slug) {
+  console.log(token);
+  console.log(slug);
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const res = axios
+    .post(`${baseURL}articles/${slug}/favorite`, {}, config)
+    .then((resp) => resp.data);
+  return res;
+}
+
+export function dislikeArticle(token, slug) {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const res = axios
+    .delete(`${baseURL}articles/${slug}/favorite`, config)
+    .then((resp) => resp.data);
+  return res;
+}

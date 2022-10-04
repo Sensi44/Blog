@@ -14,7 +14,7 @@ import { CustomLink } from 'components/CustomLink';
 import './App.scss';
 
 function App() {
-  console.log('BLog-platform v2.3.2');
+  console.log('BLog-platform v2.4.1');
   return (
     <>
       <Routes>

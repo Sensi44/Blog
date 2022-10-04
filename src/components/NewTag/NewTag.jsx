@@ -31,7 +31,7 @@ const NewTag = ({
         <input
           type='button'
           value='Delete'
-          onClick={() => deleteTag(id)}
+          onClick={() => deleteTag(id, title)}
           className={`${stylesAdd.deleteBtn}`}
         />
 

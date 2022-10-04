@@ -1,27 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
-import { createArticle } from 'Api';
-import { setModal } from 'store/slices/loadingSlice';
+import { editArticle, getPost } from 'Api';
+import { setLoading, setModal, startLoading } from 'store/slices/loadingSlice';
 import { setError } from 'store/slices/userSlice';
+import { setArticle } from 'store/slices/articleSlice';
 import styles from 'assets/css-modules/forms.module.scss';
 import stylesAdd from 'assets/css-modules/newEdit.module.scss';
+import { getTagsValue, getTagList } from 'utils/tagsReduce';
 
 const EditPost = () => {
   const navigate = useNavigate();
-  const { modalWindow, loginError, token, username } = useStore();
-  const [count, setCount] = useState(2);
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+  const {
+    modalWindow,
+    loginError,
+    token,
+    article = { tagList: [] },
+  } = useStore();
+  const [tags, setTags] = useState(getTagList(article.tagList));
+  const [count, setCount] = useState(25);
+  const [defaultValues] = useState(getTagsValue(article));
+
   const {
     register,
+    unregister,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
-  const deleteTag = (id) => {
+  const redirect = () => {
+    navigate('/articles');
+  };
+
+  const deleteTag = (id, title) => {
+    unregister(title);
+
     setTags((prevState) => {
       if (prevState.length === 1) {
         return [...prevState];
@@ -51,19 +70,9 @@ const EditPost = () => {
     });
   };
 
-  const [tags, setTags] = useState([
-    { key: 1, title: `tag${1}`, last: true, id: 1, required: true },
-  ]);
-
-  const dispatch = useDispatch();
-
-  const redirect = () => {
-    navigate('/articles');
-  };
-
   const onSubmit = ({ title, description, text, ...tagsArray }) => {
     console.log(title, description, text, Object.values(tagsArray));
-    createArticle(token, title, description, text, Object.values(tagsArray))
+    editArticle(token, slug, title, description, text, Object.values(tagsArray))
       .then((res) => {
         console.log(res);
         dispatch(setModal(true));
@@ -79,22 +88,29 @@ const EditPost = () => {
   };
 
   useEffect(() => {
-    if (!username) navigate('/sign-in');
-  });
+    dispatch(startLoading());
+    getPost(slug, token)
+      .then((res) => {
+        dispatch(setArticle(res.article));
+      })
+      .catch((err) => dispatch(setError(err.message)))
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+  }, [slug, dispatch, token]);
 
-  console.table(tags);
   return (
     <div className={`${styles.formContainer} ${stylesAdd.formContainer}`}>
       <form
         className={`${styles.form} ${stylesAdd.formSize}`}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className={styles.title}>Create new article</h2>
+        <h2 className={styles.title}>Edit article</h2>
         {modalWindow ? (
-          <div className={styles.success}>Article created</div>
+          <div className={styles.success}>successfully edited</div>
         ) : null}
         {loginError ? (
-          <div className={styles.loginError}>Article was not created</div>
+          <div className={styles.loginError}>edit failed</div>
         ) : null}
 
         <label>
@@ -107,7 +123,7 @@ const EditPost = () => {
               required: true,
               minLength: 3,
               maxLength: 80,
-              pattern: /^[0-9A-Za-zА-Яа-я\s]+$/gi,
+              pattern: /^[0-9A-Za-zА-Яа-яё\s]+$/gi,
             })}
           />
           {errors.title && (

@@ -17,11 +17,14 @@ const NewPost = () => {
   const [count, setCount] = useState(2);
   const {
     register,
+    unregister,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
-  const deleteTag = (id) => {
+  const deleteTag = (id, title) => {
+    unregister(title);
     setTags((prevState) => {
       if (prevState.length === 1) {
         return [...prevState];
@@ -82,7 +85,8 @@ const NewPost = () => {
     if (!username) navigate('/sign-in');
   });
 
-  console.table(tags);
+  console.log(tags);
+  console.log(watch());
   return (
     <div className={`${styles.formContainer} ${stylesAdd.formContainer}`}>
       <form

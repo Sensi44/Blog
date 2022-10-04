@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import dateCorrector from 'utils/dateCorrector';
 import likeIcon from 'assets/img/like.svg';
+import { likeArticle, dislikeArticle } from 'Api';
+
+import { useStore } from '../../hooks/useStore';
 
 import styles from './PostP.module.scss';
 
 const PostPreview = ({ post }) => {
+  const { token } = useStore();
   const {
     titleLink,
     left,
@@ -20,6 +24,7 @@ const PostPreview = ({ post }) => {
     name,
     leftTop,
     like,
+    dislike,
     likeCount,
     rightTop,
   } = styles;
@@ -32,8 +37,27 @@ const PostPreview = ({ post }) => {
     tagList,
     author: { username, image },
     favoritesCount,
+    favorited,
   } = post;
+  const [likeArt, setLikeArt] = useState(favorited);
+  const [likeNum, setLikeNum] = useState(favoritesCount);
 
+  const handleLike = () => {
+    if (likeArt) {
+      dislikeArticle(token, slug).then((a) => {
+        setLikeArt(!likeArt);
+        setLikeNum(likeNum - 1);
+      });
+    }
+    if (!likeArt) {
+      likeArticle(token, slug).then(() => {
+        setLikeArt(!likeArt);
+        setLikeNum(likeNum + 1);
+      });
+    }
+  };
+
+  console.log(post);
   return (
     <>
       <div className={left}>
@@ -41,8 +65,8 @@ const PostPreview = ({ post }) => {
           <Link className={titleLink} to={`/articles/${slug}`}>
             {title}
           </Link>
-          <img src={likeIcon} className={like} alt='aaa' />
-          <span className={likeCount}>{favoritesCount}</span>
+          <button onClick={handleLike} className={likeArt ? dislike : like} />
+          <span className={likeCount}>{likeNum}</span>
         </div>
 
         <ul className={tags}>
