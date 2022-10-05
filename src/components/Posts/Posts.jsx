@@ -38,6 +38,9 @@ const Posts = () => {
   }, [page, dispatch, token]);
 
   const { articles, articlesCount } = posts;
+
+  console.log(posts);
+
   return (
     <>
       {loading ? <Spin size='large' className={styles.spin} /> : null}

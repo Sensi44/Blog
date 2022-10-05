@@ -20,20 +20,20 @@ const PostPreview = ({ post }) => {
     favorited,
   } = post;
   const [likeArt, setLikeArt] = useState(favorited);
-  const [likeNum, setLikeNum] = useState(favoritesCount);
+  const [likeCount, setLikeNum] = useState(favoritesCount);
 
   const handleLike = () => {
     if (token) {
       if (likeArt) {
         dislikeArticle(token, slug).then(() => {
           setLikeArt(!likeArt);
-          setLikeNum(likeNum - 1);
+          setLikeNum(likeCount - 1);
         });
       }
       if (!likeArt) {
         likeArticle(token, slug).then(() => {
           setLikeArt(!likeArt);
-          setLikeNum(likeNum + 1);
+          setLikeNum(likeCount + 1);
         });
       }
     }
@@ -50,7 +50,7 @@ const PostPreview = ({ post }) => {
             onClick={handleLike}
             className={likeArt ? styles.dislike : styles.like}
           />
-          <span className={styles.likeCount}>{likeNum}</span>
+          <span className={styles.likeCount}>{likeCount}</span>
         </div>
 
         <ul className={styles.tags}>
