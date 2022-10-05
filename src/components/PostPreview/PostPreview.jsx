@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { likeArticle, dislikeArticle } from 'Api';
@@ -7,7 +7,7 @@ import { useStore } from 'hooks/useStore';
 
 import styles from './PostP.module.scss';
 
-const PostPreview = ({ post }) => {
+const PostPreview = ({ post, update }) => {
   const { token } = useStore();
   const {
     createdAt,
@@ -19,21 +19,17 @@ const PostPreview = ({ post }) => {
     favoritesCount,
     favorited,
   } = post;
-  const [likeArt, setLikeArt] = useState(favorited);
-  const [likeCount, setLikeNum] = useState(favoritesCount);
 
   const handleLike = () => {
     if (token) {
-      if (likeArt) {
-        dislikeArticle(token, slug).then(() => {
-          setLikeArt(!likeArt);
-          setLikeNum(likeCount - 1);
+      if (favorited) {
+        dislikeArticle(token, slug).finally(() => {
+          update();
         });
       }
-      if (!likeArt) {
-        likeArticle(token, slug).then(() => {
-          setLikeArt(!likeArt);
-          setLikeNum(likeCount + 1);
+      if (!favorited) {
+        likeArticle(token, slug).finally(() => {
+          update();
         });
       }
     }
@@ -48,9 +44,9 @@ const PostPreview = ({ post }) => {
           </Link>
           <button
             onClick={handleLike}
-            className={likeArt ? styles.dislike : styles.like}
+            className={favorited ? styles.dislike : styles.like}
           />
-          <span className={styles.likeCount}>{likeCount}</span>
+          <span className={styles.likeCount}>{favoritesCount}</span>
         </div>
 
         <ul className={styles.tags}>

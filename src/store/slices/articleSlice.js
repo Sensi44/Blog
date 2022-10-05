@@ -13,7 +13,7 @@ const initialState = {
   },
 };
 
-const userSlice = createSlice({
+const articleSlice = createSlice({
   name: 'article',
   initialState,
   reducers: {
@@ -23,7 +23,7 @@ const userSlice = createSlice({
   },
 });
 
-const { actions, reducer } = userSlice;
+const { actions, reducer } = articleSlice;
 export const { setArticle } = actions;
 
 export default reducer;
