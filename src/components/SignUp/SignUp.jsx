@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
-import { useStore } from 'hooks/useStore';
-import styles from 'assets/css-modules/forms.module.scss';
-import { signUp } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
-
+import { setError } from 'store/slices/userSlice';
+import { useStore } from 'hooks/useStore';
+import { signUp } from 'Api';
+import styles from 'assets/css-modules/forms.module.scss';
 import './SignUp.scss';
-import { setError } from '../../store/slices/userSlice';
 
 const SignUp = () => {
   const dispatch = useDispatch();

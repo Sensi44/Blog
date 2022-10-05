@@ -1,29 +1,25 @@
 import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import cookie from 'cookie_js';
 
 import { useStore } from 'hooks/useStore';
 import { signIn } from 'Api';
-import { setModal } from 'store/slices/loadingSlice';
 import { setUser, setError } from 'store/slices/userSlice';
+import { setModal } from 'store/slices/loadingSlice';
 import styles from 'assets/css-modules/forms.module.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { modalWindow, loginError, username } = useStore();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (username) navigate('/articles');
-  });
 
   const redirect = () => {
     navigate('/articles');
@@ -45,6 +41,10 @@ const SignIn = () => {
         }
       });
   };
+
+  useEffect(() => {
+    if (username) navigate('/articles');
+  });
 
   return (
     <div className={styles.formContainer}>

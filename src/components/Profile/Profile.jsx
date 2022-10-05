@@ -2,25 +2,19 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { useStore } from 'hooks/useStore';
-import styles from 'assets/css-modules/forms.module.scss';
 import { editProfile } from 'Api';
+import { useStore } from 'hooks/useStore';
 import { setModal } from 'store/slices/loadingSlice';
+import styles from 'assets/css-modules/forms.module.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { modalWindow, token, username, email, image } = useStore();
-  const defaultValues = {
-    username,
-    email,
-    password: '',
-    URL: image,
-  };
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm();
 
   const onSubmit = ({ user, mail, password, URL }) => {
     editProfile(token, user, mail, password, URL)
@@ -48,6 +42,7 @@ const Profile = () => {
             className={styles.input}
             type='text'
             placeholder='Username'
+            defaultValue={username}
             {...register('username', {
               required: true,
               minLength: 3,
@@ -68,6 +63,7 @@ const Profile = () => {
             className={styles.input}
             type='email'
             placeholder='Email address'
+            defaultValue={email}
             {...register('email', {
               required: true,
               maxLength: 80,
@@ -88,6 +84,7 @@ const Profile = () => {
             autoComplete='on'
             type='password'
             placeholder='New password'
+            defaultValue={''}
             {...register('password', {
               required: true,
               minLength: 6,
@@ -109,6 +106,7 @@ const Profile = () => {
             autoComplete='on'
             type='url'
             placeholder='Avatar image'
+            defaultValue={image}
             {...register('URL', {})}
           />
           {errors.URL && <span className={styles.inputError}>Bad picture</span>}

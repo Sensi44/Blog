@@ -28,7 +28,6 @@ const Posts = () => {
     const offset = (page > 0 ? page - 1 : 0) * 5;
 
     getArticles(offset, 5, token)
-      // .then((res) => setPosts(res))
       .then((res) => dispatch(setPosts(res)))
       .catch((err) => {
         dispatch(setError(err.message));
@@ -39,7 +38,6 @@ const Posts = () => {
   }, [page, dispatch, token]);
 
   const { articles, articlesCount } = posts;
-
   return (
     <>
       {loading ? <Spin size='large' className={styles.spin} /> : null}

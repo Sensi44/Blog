@@ -1,7 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Pagination } from 'antd';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 
 import 'antd/dist/antd.min.css';
 import './Pages.scss';

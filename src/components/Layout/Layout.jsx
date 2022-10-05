@@ -4,10 +4,9 @@ import { Offline } from 'react-detect-offline';
 import { useDispatch } from 'react-redux';
 import cookie from 'cookie_js';
 
+import { getCurrentUser } from 'Api';
 import { Header } from 'components/Header';
-
-import { setUser } from '../../store/slices/userSlice';
-import { getCurrentUser } from '../../Api';
+import { setUser } from 'store/slices/userSlice';
 import './Layout.scss';
 
 const Layout = () => {

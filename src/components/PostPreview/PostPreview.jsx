@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { likeArticle, dislikeArticle } from 'Api';
-import dateCorrector from 'utils/dateCorrector';
 import { useStore } from 'hooks/useStore';
+import dateCorrector from 'utils/dateCorrector';
 
 import styles from './PostP.module.scss';
 
@@ -76,6 +77,11 @@ const PostPreview = ({ post, update }) => {
       </div>
     </>
   );
+};
+
+PostPreview.propTypes = {
+  post: PropTypes.object,
+  update: PropTypes.func,
 };
 
 export default PostPreview;

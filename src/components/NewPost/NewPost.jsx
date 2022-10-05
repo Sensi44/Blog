@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
+import { addTag, deleteTag, getTagList } from 'utils/tagsReduce';
+import { createArticle } from 'Api';
 import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
-import { createArticle } from 'Api';
 import { setModal } from 'store/slices/loadingSlice';
 import { setError } from 'store/slices/userSlice';
-import styles from 'assets/css-modules/forms.module.scss';
 import stylesAdd from 'assets/css-modules/newEdit.module.scss';
+import styles from 'assets/css-modules/forms.module.scss';
 
 const NewPost = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { modalWindow, loginError, token, username } = useStore();
   const [count, setCount] = useState(2);
@@ -19,47 +21,14 @@ const NewPost = () => {
     register,
     unregister,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-
-  const deleteTag = (id, title) => {
-    unregister(title);
-    setTags((prevState) => {
-      if (prevState.length === 1) {
-        return [...prevState];
-      }
-      const temp = prevState;
-      const result = temp.filter((elem) => {
-        console.log(elem.id, id);
-        return elem.id !== id;
-      });
-      return [...result];
-    });
-  };
-
-  const addTag = () => {
-    setCount(count + 1);
-    setTags((prevState) => {
-      return [
-        ...prevState,
-        {
-          key: count,
-          title: `tag${count}`,
-          last: true,
-          id: count,
-          required: false,
-        },
-      ];
-    });
-  };
-
   const [tags, setTags] = useState([
     { key: 1, title: `tag${1}`, last: true, id: 1, required: true },
   ]);
-
-  const dispatch = useDispatch();
-
+  const addFirstTag = () => {
+    setTags(getTagList(['enter tag']));
+  };
   const redirect = () => {
     navigate('/articles');
   };
@@ -108,7 +77,7 @@ const NewPost = () => {
               required: true,
               minLength: 3,
               maxLength: 80,
-              pattern: /^[0-9A-Za-zА-Яа-я\s]+$/gi,
+              pattern: /^[0-9A-Za-zА-Яа-яё\s]+$/gi,
             })}
           />
           {errors.title && (
@@ -126,7 +95,7 @@ const NewPost = () => {
               required: true,
               minLength: 3,
               maxLength: 80,
-              pattern: /^[0-9A-Za-zА-Яа-я\s]+$/i,
+              pattern: /^[0-9A-Za-zА-Яа-яё\s]+$/i,
             })}
           />
           {errors.description && (
@@ -154,19 +123,28 @@ const NewPost = () => {
           <div className={styles.label}>Tags</div>
           {tags.map((elem, index) => {
             elem.last = index === tags.length - 1;
+            const { id, title } = elem;
             return (
               <NewTag
                 key={elem.key}
                 title={elem.title}
-                addTag={addTag}
+                addTag={() => addTag(setCount, setTags, count)}
                 register={register}
-                deleteTag={deleteTag}
+                deleteTag={() => deleteTag(id, title, unregister, setTags)}
                 last={elem.last}
                 id={elem.id}
                 errors={errors}
               />
             );
           })}
+          {!tags.length ? (
+            <input
+              type='button'
+              value='Add Tag'
+              onClick={addFirstTag}
+              className={stylesAdd.addTagButton}
+            />
+          ) : null}
         </div>
 
         <input

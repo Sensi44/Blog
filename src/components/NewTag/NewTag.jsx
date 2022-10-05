@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from 'assets/css-modules/forms.module.scss';
 import stylesAdd from 'assets/css-modules/newEdit.module.scss';
@@ -10,8 +11,8 @@ const NewTag = ({
   deleteTag,
   last,
   id,
-  required,
   errors,
+  defaultValue,
 }) => {
   return (
     <div className={stylesAdd.newTagContainer}>
@@ -20,11 +21,12 @@ const NewTag = ({
           className={`${styles.input} ${stylesAdd.tagInput}`}
           type='text'
           placeholder='Tag'
+          defaultValue={defaultValue}
           {...register(`${title}`, {
-            required,
+            required: true,
             minLength: 2,
             maxLength: 25,
-            pattern: /^[0-9A-Za-zА-Яа-я]+$/i,
+            pattern: /^[0-9A-Za-zА-Яа-яё]+$/i,
           })}
         />
 
@@ -52,6 +54,17 @@ const NewTag = ({
       )}
     </div>
   );
+};
+
+NewTag.propTypes = {
+  title: PropTypes.string,
+  register: PropTypes.func,
+  addTag: PropTypes.func,
+  deleteTag: PropTypes.func,
+  last: PropTypes.bool,
+  id: PropTypes.number,
+  errors: PropTypes.object,
+  defaultValue: PropTypes.string,
 };
 
 export default NewTag;

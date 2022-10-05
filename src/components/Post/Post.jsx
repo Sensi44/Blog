@@ -9,13 +9,13 @@ import { useStore } from 'hooks/useStore';
 import { Modal } from 'pages/Modal';
 import dateCorrector from 'utils/dateCorrector';
 import { setArticle } from 'store/slices/articleSlice';
-
 import {
   setLoading,
   setError,
   startLoading,
   setModal,
-} from '../../store/slices/loadingSlice';
+} from 'store/slices/loadingSlice';
+
 import styles from '../PostPreview/PostP.module.scss';
 import 'antd/dist/antd.min.css';
 
@@ -84,9 +84,7 @@ const Post = () => {
           <div className={styles.articleInfo}>
             <div className={styles.left}>
               <div className={styles.leftTop}>
-                <Link className={styles.titleLink} to={`/posts/${slug}`}>
-                  {title}
-                </Link>
+                <div className={styles.titleLink}>{title}</div>
                 <button
                   onClick={handleLike}
                   className={favorited ? styles.dislike : styles.like}
