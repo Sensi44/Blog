@@ -8,6 +8,8 @@ import dateCorrector from 'utils/dateCorrector';
 
 import styles from './PostP.module.scss';
 
+const classNames = require('classnames');
+
 const PostPreview = ({ post, update }) => {
   const { token } = useStore();
   const {
@@ -36,6 +38,12 @@ const PostPreview = ({ post, update }) => {
     }
   };
 
+  const likeClass = classNames({
+    [styles.dislike]: favorited,
+    [styles.like]: !favorited,
+    [styles.notActiveLike]: !token,
+  });
+
   return (
     <>
       <div className={styles.left}>
@@ -43,10 +51,7 @@ const PostPreview = ({ post, update }) => {
           <Link className={styles.titleLink} to={`/articles/${slug}`}>
             {title}
           </Link>
-          <button
-            onClick={handleLike}
-            className={favorited ? styles.dislike : styles.like}
-          />
+          <button onClick={handleLike} className={likeClass} />
           <span className={styles.likeCount}>{favoritesCount}</span>
         </div>
 

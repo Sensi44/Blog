@@ -19,6 +19,8 @@ import {
 import styles from '../PostPreview/PostP.module.scss';
 import 'antd/dist/antd.min.css';
 
+const classNames = require('classnames');
+
 const Post = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
@@ -68,6 +70,12 @@ const Post = () => {
       });
   }, [slug, dispatch, token]);
 
+  const likeClass = classNames({
+    [styles.dislike]: favorited,
+    [styles.like]: !favorited,
+    [styles.notActiveLike]: !token,
+  });
+
   return (
     <>
       {loading ? <Spin size='large' className={styles.spin} /> : null}
@@ -85,10 +93,7 @@ const Post = () => {
             <div className={styles.left}>
               <div className={styles.leftTop}>
                 <div className={styles.titleLink}>{title}</div>
-                <button
-                  onClick={handleLike}
-                  className={favorited ? styles.dislike : styles.like}
-                />
+                <button onClick={handleLike} className={likeClass} />
                 <span className={styles.likeCount}>{favoritesCount}</span>
               </div>
 
@@ -129,7 +134,7 @@ const Post = () => {
                   >
                     Edit
                   </Link>
-                  {modalWindow ? <Modal slug={slug} /> : null}
+                  {modalWindow ? <Modal slug={slug} mod={modalWindow} /> : null}
                 </div>
               ) : null}
             </div>

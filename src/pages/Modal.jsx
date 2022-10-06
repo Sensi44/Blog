@@ -1,35 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { deleteArticle } from 'Api';
-import { setModal } from 'store/slices/loadingSlice';
+import { setModal, setError } from 'store/slices/loadingSlice';
 import styles from 'components/PostPreview/PostP.module.scss';
 
 import { useStore } from '../hooks/useStore';
 
-const Modal = ({ slug }) => {
+const Modal = ({ slug, mod }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useStore();
+  const { token, error } = useStore();
 
   const handleDecline = () => {
     dispatch(setModal(false));
   };
 
   const handleDeleteArticle = () => {
-    console.log('delete article');
     deleteArticle(token, slug)
       .then((res) => {
         console.log(res);
         dispatch(setModal(false));
         navigate('/articles');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(setError(err)))
+      .finally(() => dispatch(setError(null)));
   };
 
+  useEffect(() => {
+    const modal = document.querySelector('#modal');
+    console.log(modal);
+    document.addEventListener('keydown', (e) => {
+      console.log('add');
+      if (e.code === 'Escape') {
+        dispatch(setModal(false));
+      }
+    });
+    return document.removeEventListener('keydown', (e) => {
+      console.log('remove');
+      if (e.code === 'Escape') {
+        dispatch(setModal(false));
+      }
+    });
+  }, []);
+
   return (
-    <div className={styles.modal}>
+    <div id='modal' className={styles.modal}>
+      {error ? <div>Error delete</div> : null}
       <div className={styles.modalTop}>
         <div className={styles.sign} />
         <span className={styles.topText}>

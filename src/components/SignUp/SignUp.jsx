@@ -71,7 +71,9 @@ const SignUp = () => {
           />
           {errors.username && (
             <span className={styles.inputError}>
-              enter username, max length 20 characters
+              {console.log(errors.username)}
+              enter correct username <br />
+              (Only Latin and numbers from 0 - 9)
             </span>
           )}
         </label>
@@ -111,7 +113,8 @@ const SignUp = () => {
           />
           {errors.password && (
             <span className={styles.inputError}>
-              Your password needs to be at least 6 characters.
+              Your password needs to be at least 6 characters &<br />
+              Only Latin and numbers from 0 - 9
             </span>
           )}
         </label>
@@ -132,7 +135,8 @@ const SignUp = () => {
           />
           {errors.repeatPassword && (
             <span className={styles.inputError}>
-              Your password needs to be at least 6 characters
+              Your password needs to be at least 6 characters &<br />
+              Only Latin and numbers from 0 - 9
             </span>
           )}
           <div>
