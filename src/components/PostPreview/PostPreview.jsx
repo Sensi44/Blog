@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import { likeArticle, dislikeArticle } from 'Api';
 import { useStore } from 'hooks/useStore';
 import dateCorrector from 'utils/dateCorrector';
-
-import styles from './PostP.module.scss';
+import styles from 'assets/css-modules/PostP.module.scss';
 
 const classNames = require('classnames');
 

@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { deleteArticle } from 'Api';
 import { setModal, setError } from 'store/slices/loadingSlice';
-import styles from 'components/PostPreview/PostP.module.scss';
+import styles from 'assets/css-modules/PostP.module.scss';
 
 import { useStore } from '../hooks/useStore';
 
-const Modal = ({ slug, mod }) => {
+const Modal = ({ slug }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token, error } = useStore();
@@ -43,7 +43,7 @@ const Modal = ({ slug, mod }) => {
         dispatch(setModal(false));
       }
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div id='modal' className={styles.modal}>

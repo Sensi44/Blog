@@ -10,7 +10,6 @@ import { useStore } from 'hooks/useStore';
 import { setLoading, setError, startLoading } from 'store/slices/loadingSlice';
 import { setPosts } from 'store/slices/postsSlice';
 
-import './Posts.scss';
 import styles from './Posts.module.scss';
 
 const Posts = () => {

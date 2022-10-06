@@ -15,8 +15,7 @@ import {
   startLoading,
   setModal,
 } from 'store/slices/loadingSlice';
-
-import styles from '../PostPreview/PostP.module.scss';
+import styles from 'assets/css-modules/PostP.module.scss';
 import 'antd/dist/antd.min.css';
 
 const classNames = require('classnames');
@@ -134,7 +133,7 @@ const Post = () => {
                   >
                     Edit
                   </Link>
-                  {modalWindow ? <Modal slug={slug} mod={modalWindow} /> : null}
+                  {modalWindow ? <Modal slug={slug} /> : null}
                 </div>
               ) : null}
             </div>
