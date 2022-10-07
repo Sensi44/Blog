@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import cookie from 'cookie_js';
 
 import { useStore } from 'hooks/useStore';
 import { setUser } from 'store/slices/userSlice';
@@ -12,7 +11,7 @@ const Header = () => {
   const { isAuth, username, image } = useStore();
 
   const handleLogOut = () => {
-    cookie.remove('user_token');
+    localStorage.removeItem('user_token');
     dispatch(
       setUser({
         email: null,

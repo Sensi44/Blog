@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import cookie from 'cookie_js';
 
 import { useStore } from 'hooks/useStore';
 import { signIn } from 'api';
@@ -28,7 +27,7 @@ const SignIn = () => {
   const onSubmit = ({ email, password }) => {
     signIn(email, password)
       .then((res) => {
-        cookie.set('user_token', res.user.token, { expires: 11 });
+        localStorage.setItem('user_token', res.user.token);
         dispatch(setUser(res.user));
         dispatch(setModal(true));
         setTimeout(() => dispatch(setModal(false)), 1500);
