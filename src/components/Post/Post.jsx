@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Spin } from 'antd';
 import ReactMarkdown from 'react-markdown';
 
-import { dislikeArticle, getPost, likeArticle } from 'Api';
+import { dislikeArticle, getPost, likeArticle } from 'api';
 import { useStore } from 'hooks/useStore';
 import { Modal } from 'pages/Modal';
 import dateCorrector from 'utils/dateCorrector';
@@ -15,7 +15,7 @@ import {
   startLoading,
   setModal,
 } from 'store/slices/loadingSlice';
-import styles from 'assets/css-modules/PostP.module.scss';
+import styles from 'components/PostPreview/PostP.module.scss';
 import 'antd/dist/antd.min.css';
 
 const classNames = require('classnames');

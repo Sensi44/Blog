@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { setModal } from 'store/slices/loadingSlice';
 import { setError } from 'store/slices/userSlice';
 import { useStore } from 'hooks/useStore';
-import { signUp } from 'Api';
+import { signUp } from 'api';
 import styles from 'assets/css-modules/forms.module.scss';
 import './SignUp.scss';
 
@@ -71,7 +71,6 @@ const SignUp = () => {
           />
           {errors.username && (
             <span className={styles.inputError}>
-              {console.log(errors.username)}
               enter correct username <br />
               (Only Latin and numbers from 0 - 9)
             </span>

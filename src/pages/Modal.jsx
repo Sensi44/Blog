@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { deleteArticle } from 'Api';
+import { deleteArticle } from 'api';
 import { setModal, setError } from 'store/slices/loadingSlice';
-import styles from 'assets/css-modules/PostP.module.scss';
+import styles from 'components/PostPreview/PostP.module.scss';
 
 import { useStore } from '../hooks/useStore';
 
@@ -20,30 +20,12 @@ const Modal = ({ slug }) => {
   const handleDeleteArticle = () => {
     deleteArticle(token, slug)
       .then((res) => {
-        console.log(res);
         dispatch(setModal(false));
         navigate('/articles');
       })
       .catch((err) => dispatch(setError(err)))
       .finally(() => dispatch(setError(null)));
   };
-
-  useEffect(() => {
-    const modal = document.querySelector('#modal');
-    console.log(modal);
-    document.addEventListener('keydown', (e) => {
-      console.log('add');
-      if (e.code === 'Escape') {
-        dispatch(setModal(false));
-      }
-    });
-    return document.removeEventListener('keydown', (e) => {
-      console.log('remove');
-      if (e.code === 'Escape') {
-        dispatch(setModal(false));
-      }
-    });
-  }, [dispatch]);
 
   return (
     <div id='modal' className={styles.modal}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { Posts } from 'components/Posts';
+import { Posts } from 'components/PostList';
 import { Post } from 'components/Post';
 import { SignUp } from 'components/SignUp';
 import { SignIn } from 'components/SignIn';
@@ -13,7 +13,6 @@ import { HomePage } from 'pages/HomePage';
 import './App.scss';
 
 function App() {
-  console.log('BLog-platform v2.4.1');
   return (
     <>
       <Routes>

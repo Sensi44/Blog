@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import cookie from 'cookie_js';
 
 import { useStore } from 'hooks/useStore';
-import { signIn } from 'Api';
+import { signIn } from 'api';
 import { setUser, setError } from 'store/slices/userSlice';
 import { setModal } from 'store/slices/loadingSlice';
 import styles from 'assets/css-modules/forms.module.scss';

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { addTag, deleteTag, getTagList } from 'utils/tagsReduce';
-import { createArticle } from 'Api';
+import { createArticle } from 'api';
 import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
 import { setModal } from 'store/slices/loadingSlice';
@@ -34,7 +34,6 @@ const NewPost = () => {
   };
 
   const onSubmit = ({ title, description, text, ...tagsArray }) => {
-    console.log(title, description, text, Object.values(tagsArray));
     createArticle(token, title, description, text, Object.values(tagsArray))
       .then(() => {
         dispatch(setModal(true));

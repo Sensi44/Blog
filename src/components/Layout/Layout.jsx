@@ -4,9 +4,10 @@ import { Offline } from 'react-detect-offline';
 import { useDispatch } from 'react-redux';
 import cookie from 'cookie_js';
 
-import { getCurrentUser } from 'Api';
+import { getCurrentUser } from 'api';
 import { Header } from 'components/Header';
 import { setUser } from 'store/slices/userSlice';
+import like from 'assets/icons/like.svg';
 import './Layout.scss';
 
 const Layout = () => {
@@ -30,7 +31,7 @@ const Layout = () => {
           Internet connection problem, please check your network connection
         </div>
       </Offline>
-
+      {like}
       <main className='container'>
         <Outlet />
       </main>

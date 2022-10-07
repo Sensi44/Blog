@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { likeArticle, dislikeArticle } from 'Api';
+import { likeArticle, dislikeArticle } from 'api';
 import { useStore } from 'hooks/useStore';
 import dateCorrector from 'utils/dateCorrector';
-import styles from 'assets/css-modules/PostP.module.scss';
+
+import styles from './PostP.module.scss';
 
 const classNames = require('classnames');
 

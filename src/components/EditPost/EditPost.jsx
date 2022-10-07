@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { getTagList, addTag, deleteTag } from 'utils/tagsReduce';
-import { editArticle, getPost } from 'Api';
+import { editArticle, getPost } from 'api';
 import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
 import { setLoading, setModal, startLoading } from 'store/slices/loadingSlice';
@@ -39,7 +39,6 @@ const EditPost = () => {
   const onSubmit = ({ title, description, text, ...tagsArray }) => {
     editArticle(token, slug, title, description, text, Object.values(tagsArray))
       .then((res) => {
-        console.log(res);
         dispatch(setModal(true));
         setTimeout(() => dispatch(setModal(false)), 1500);
         setTimeout(redirect, 1700);
@@ -143,7 +142,6 @@ const EditPost = () => {
           <div className={styles.label}>Tags</div>
           {tags.map((elem, index) => {
             elem.last = index === tags.length - 1;
-            console.log(elem);
             const { id, title } = elem;
             return (
               <NewTag

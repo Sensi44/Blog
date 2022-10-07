@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Pages } from 'components/Pages';
 import { PostPreview } from 'components/PostPreview';
-import { getArticles } from 'Api';
+import { getArticles } from 'api';
 import { useStore } from 'hooks/useStore';
 import { setLoading, setError, startLoading } from 'store/slices/loadingSlice';
 import { setPosts } from 'store/slices/postsSlice';

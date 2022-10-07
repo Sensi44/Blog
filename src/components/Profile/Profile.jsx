@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { editProfile } from 'Api';
+import { editProfile } from 'api';
 import { useStore } from 'hooks/useStore';
 import { setModal } from 'store/slices/loadingSlice';
 import styles from 'assets/css-modules/forms.module.scss';
