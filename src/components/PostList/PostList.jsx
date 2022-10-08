@@ -10,9 +10,9 @@ import { useStore } from 'hooks/useStore';
 import { setLoading, setError, startLoading } from 'store/slices/loadingSlice';
 import { setPosts } from 'store/slices/postsSlice';
 
-import styles from './Posts.module.scss';
+import styles from './PostList.module.scss';
 
-const Posts = () => {
+const PostList = () => {
   const dispatch = useDispatch();
   const { p: page = 0 } = useParams();
   const { loading, error, token, posts } = useStore();
@@ -39,7 +39,11 @@ const Posts = () => {
   const { articles, articlesCount } = posts;
   return (
     <>
-      {loading ? <Spin size='large' className={styles.spin} /> : null}
+      {loading ? (
+        <section className={styles.section}>
+          <Spin size='large' className={styles.spin} />
+        </section>
+      ) : null}
 
       {error ? (
         <div className={styles.error}>
@@ -49,21 +53,21 @@ const Posts = () => {
       ) : null}
 
       {loading || error ? null : (
-        <div>
+        <ul className={styles.section}>
           {articles ? (
             articles.map((post, index) => (
-              <div key={`post-${index}`} className={styles.post}>
+              <li key={`post-${index}`} className={styles.post}>
                 <PostPreview post={post} update={update} />
-              </div>
+              </li>
             ))
           ) : (
             <p>Постов нет</p>
           )}
-        </div>
+        </ul>
       )}
       <Pages pages={articlesCount} current={page === 0 ? 1 : +page} />
     </>
   );
 };
 
-export default Posts;
+export default PostList;

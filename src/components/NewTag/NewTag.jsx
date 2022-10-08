@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from 'assets/css-modules/forms.module.scss';
-import stylesAdd from 'assets/css-modules/newEdit.module.scss';
+import styles from 'components/SignUp/forms.module.scss';
+import stylesAdd from 'components/NewPost/newEdit.module.scss';
 
 const NewTag = ({
   title,

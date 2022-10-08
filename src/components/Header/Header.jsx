@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 import { useStore } from 'hooks/useStore';
 import { setUser } from 'store/slices/userSlice';
@@ -42,9 +43,9 @@ const Header = () => {
               </div>
             }
           </Link>
-          <button className='logOut' onClick={handleLogOut}>
+          <Button className='logOut' onClick={handleLogOut}>
             Log Out
-          </button>
+          </Button>
         </div>
       ) : (
         <div className='noAuth'>

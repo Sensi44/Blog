@@ -7,7 +7,7 @@ import { setModal } from 'store/slices/loadingSlice';
 import { setError } from 'store/slices/userSlice';
 import { useStore } from 'hooks/useStore';
 import { signUp } from 'api';
-import styles from 'assets/css-modules/forms.module.scss';
+import styles from 'components/SignUp/forms.module.scss';
 import './SignUp.scss';
 
 const SignUp = () => {

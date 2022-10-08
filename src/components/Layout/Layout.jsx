@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Offline } from 'react-detect-offline';
 import { useDispatch } from 'react-redux';
+import { Alert } from 'antd';
 
 import { getCurrentUser } from 'api';
 import { Header } from 'components/Header';
 import { setUser } from 'store/slices/userSlice';
-import dislike from 'assets/icons/like.svg';
 import './Layout.scss';
 
 const Layout = () => {
@@ -27,7 +27,10 @@ const Layout = () => {
       <Header />
       <Offline>
         <div className='network-e'>
-          Internet connection problem, please check your network connection
+          <Alert
+            message='Internet connection problem, please check your network connection'
+            type='error'
+          />
         </div>
       </Offline>
       <main className='container'>

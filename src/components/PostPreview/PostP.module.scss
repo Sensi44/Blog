@@ -46,7 +46,6 @@
 .like, .dislike {
   width: 16px;
   height: 16px;
-  background-image: url("../../assets/img/like.png");
   background-size: auto;
   background-position: center center;
   background-color: #FFFFFF;
@@ -56,11 +55,11 @@
 }
 
 .like {
-  background-image: url("../../assets/img/like.png");
+  background: url("../../assets/icons/dislike.svg") no-repeat;
 }
 
 .dislike {
-  background: url("../../assets/img/dislike.svg") no-repeat;
+  background: url("../../assets/icons/like.svg") no-repeat;
 }
 
 .notActiveLike {
@@ -247,11 +246,11 @@
 }
 
 .sign {
-  width: 14.71px;
-  height: 14px;
+  width: 15.3px;
+  height: 15px;
   position: relative;
-  top: 3px;
-  background-image: url('../../assets/img/exclamation.svg');
+  top: 2.3px;
+  background-image: url('../../assets/icons/exclam.svg');
   background-repeat: no-repeat;
   margin-right: 9px;
 }

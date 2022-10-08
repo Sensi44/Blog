@@ -7,7 +7,7 @@ import { useStore } from 'hooks/useStore';
 import { signIn } from 'api';
 import { setUser, setError } from 'store/slices/userSlice';
 import { setModal } from 'store/slices/loadingSlice';
-import styles from 'assets/css-modules/forms.module.scss';
+import styles from 'components/SignUp/forms.module.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();

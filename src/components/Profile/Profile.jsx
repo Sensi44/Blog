@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { editProfile } from 'api';
 import { useStore } from 'hooks/useStore';
 import { setModal } from 'store/slices/loadingSlice';
-import styles from 'assets/css-modules/forms.module.scss';
+import styles from 'components/SignUp/forms.module.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();

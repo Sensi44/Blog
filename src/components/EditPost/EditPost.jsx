@@ -10,8 +10,8 @@ import { NewTag } from 'components/NewTag';
 import { setLoading, setModal, startLoading } from 'store/slices/loadingSlice';
 import { setArticle } from 'store/slices/articleSlice';
 import { setError } from 'store/slices/userSlice';
-import stylesAdd from 'assets/css-modules/newEdit.module.scss';
-import styles from 'assets/css-modules/forms.module.scss';
+import stylesAdd from 'components/NewPost/newEdit.module.scss';
+import styles from 'components/SignUp/forms.module.scss';
 
 const EditPost = () => {
   const navigate = useNavigate();

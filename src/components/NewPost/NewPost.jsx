@@ -9,8 +9,8 @@ import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
 import { setModal } from 'store/slices/loadingSlice';
 import { setError } from 'store/slices/userSlice';
-import stylesAdd from 'assets/css-modules/newEdit.module.scss';
-import styles from 'assets/css-modules/forms.module.scss';
+import stylesAdd from 'components/NewPost/newEdit.module.scss';
+import styles from 'components/SignUp/forms.module.scss';
 
 const NewPost = () => {
   const dispatch = useDispatch();
