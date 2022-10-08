@@ -13,24 +13,35 @@ a.active-link {
   @extend %flex;
   max-height: 10000vh;
   background-color: lightgray;
+}
 
-  .app {
+.app {
+  @extend %flex;
+  width: 1440px;
+  max-height: 10000vh;
+  min-height: 100vh;
+  background-color: #EBEEF3;
+
+  .container {
     @extend %flex;
-    width: 1440px;
-    max-height: 10000vh;
-    min-height: 100vh;
-    background-color: #EBEEF3;
-
-    .container {
-      @extend %flex;
-      width: 100%;
-      height: auto;
-      margin-top: 0;
-      margin-bottom: 0;
-      flex-grow: 1;
-    }
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-grow: 1;
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .app {
+    width: calc(100% - 200px);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .app {
+    width: calc(100% - 140px);
+  }
+}
 
 

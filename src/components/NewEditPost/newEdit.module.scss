@@ -1,10 +1,21 @@
-@mixin main($fw, $fs, $lh) {
+@mixin mainFont($fw, $fs, $lh) {
   font-family: 'Roboto', serif;
   font-style: normal;
   font-weight: $fw;
   font-size: $fs;
   line-height: $lh;
 }
+
+@mixin flex($fd, $ai, $jc) {
+  display: flex;
+  flex-direction: $fd;
+  align-items: $ai;
+  justify-content: $jc;
+}
+
+$red: #F5222D;
+$white: #FFFFFF;
+$blue: #1890FF;
 
 .formSize {
   width: 938px;
@@ -17,17 +28,16 @@
 
 .button {
   width: 319px;
-  margin-bottom: 0;
 }
 
 
 .textArea {
+  @include mainFont(400, 16px, 24px);
   width: 100%;
   background: #FFFFFF;
   border: 1px solid #D9D9D9;
   border-radius: 4px;
   padding: 7px 12px 0 12px;
-  @include main(400, 16px, 24px);
   color: rgba(0, 0, 0, 0.75);
   min-height: 168px;
   resize: none;
@@ -38,7 +48,7 @@
 
 .textArea:focus-visible {
   outline: none;
-  border: 1px solid #1890FF;
+  border: 1px solid $blue;
 }
 
 .textArea::-moz-placeholder {
@@ -75,24 +85,21 @@
 }
 
 .addTagButton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include mainFont(400, 16px, 24px);
+  @include flex(column, center, null);
   width: 136px;
   height: 40px;
-  box-sizing: border-box;
   padding: 8px 40px;
   margin-bottom: 0;
-  background: #FFFFFF;
-  @include main(400, 16px, 24px);
-  color: #1890FF;
+  background: $white;
+  color: $blue;
   cursor: pointer;
-  border: 1px solid #1890FF;
+  border: 1px solid $blue;
   border-radius: 4px;
 }
 
 .addTagButton:focus-visible {
-  outline: 1px solid #1890FF;
+  outline: 1px solid $blue;
 }
 
 .tagInput {
@@ -104,8 +111,7 @@
 }
 
 .newTagContainer {
-  display: flex;
-  flex-direction: column;
+  @include flex(column, null, null);
   margin-bottom: 5px;
 }
 
@@ -114,21 +120,18 @@
 }
 
 .deleteBtn {
+  @include mainFont(400, 16px, 24px);
+  @include flex(column, center, null);
   margin: 0 17px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   height: 40px;
-  box-sizing: border-box;
   padding: 8px 36px;
-  background: #FFFFFF;
-  @include main(400, 16px, 24px);
-  color: #F5222D;
+  background: $white;
+  color: $red;
   cursor: pointer;
-  border: 1px solid #F5222D;
+  border: 1px solid $red;
   border-radius: 4px;
 }
 
 .deleteBtn:focus-visible {
-  outline: 1px solid #1890FF;
+  outline: 1px solid $blue;
 }

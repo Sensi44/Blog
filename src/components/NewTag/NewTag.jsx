@@ -26,7 +26,7 @@ const NewTag = ({
             required: true,
             minLength: 2,
             maxLength: 25,
-            pattern: /^[0-9A-Za-zА-Яа-яё]+$/i,
+            pattern: /^[0-9A-Za-zА-Яа-яё\s]+$/i,
           })}
         />
 
