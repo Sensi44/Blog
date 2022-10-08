@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { Alert } from 'antd';
 
 import { setModal } from 'store/slices/loadingSlice';
 import { setError } from 'store/slices/userSlice';
@@ -34,13 +35,13 @@ const SignUp = () => {
     signUp(username, email, password)
       .then(() => {
         dispatch(setModal(true));
-        setTimeout(() => dispatch(setModal(false)), 1300);
-        setTimeout(redirect, 1500);
+        setTimeout(() => dispatch(setModal(false)), 1200);
+        setTimeout(redirect, 1800);
       })
       .catch((err) => {
         if (err.response.status === 422) {
           dispatch(setError(err.response.data.errors));
-          setTimeout(() => dispatch(setError(null)), 2000);
+          setTimeout(() => dispatch(setError(null)), 2400);
         }
       });
   };
@@ -48,16 +49,16 @@ const SignUp = () => {
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={styles.title}>Create new account</h2>
-        {modalWindow ? <div className={styles.success}>Success</div> : null}
+        {modalWindow ? <Alert message='Success' type='success' /> : null}
         {loginError?.username ? (
-          <div className={styles.loginError}>username is already taken</div>
+          <Alert message='username is already taken' type='error' showIcon />
         ) : null}
         {loginError?.email ? (
-          <div className={styles.loginError}>email is already taken</div>
+          <Alert message='email is already taken' type='error' showIcon />
         ) : null}
 
         <label>
-          <div className={styles.label}>Username</div>
+          Username
           <input
             className={styles.input}
             type='text'
@@ -78,7 +79,7 @@ const SignUp = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Email address</div>
+          Email address
           <input
             className={styles.input}
             type='email'
@@ -97,7 +98,7 @@ const SignUp = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Password</div>
+          Password
           <input
             className={styles.input}
             autoComplete='on'
@@ -119,7 +120,7 @@ const SignUp = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Repeat Password</div>
+          Repeat Password
           <input
             className={styles.input}
             autoComplete='on'

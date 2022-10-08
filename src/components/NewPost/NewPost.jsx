@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Alert } from 'antd';
 
 import { addTag, deleteTag, getTagList } from 'utils/tagsReduce';
 import { createArticle } from 'api';
@@ -60,14 +61,24 @@ const NewPost = () => {
       >
         <h2 className={styles.title}>Create new article</h2>
         {modalWindow ? (
-          <div className={styles.success}>Article created</div>
+          <Alert
+            message='Article created'
+            className={styles.success}
+            type='success'
+            showIcon
+          />
         ) : null}
         {loginError ? (
-          <div className={styles.loginError}>Article was not created</div>
+          <Alert
+            message='Article was not created'
+            type='error'
+            className={styles.loginError}
+            showIcon
+          />
         ) : null}
 
         <label>
-          <div className={styles.label}>Title</div>
+          Title
           <input
             className={styles.input}
             type='text'
@@ -85,7 +96,7 @@ const NewPost = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Short description</div>
+          Short description
           <input
             className={styles.input}
             type='text'
@@ -105,7 +116,7 @@ const NewPost = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Text</div>
+          Text
           <textarea
             className={stylesAdd.textArea}
             placeholder='Text'

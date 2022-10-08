@@ -28,7 +28,7 @@ const Modal = ({ slug }) => {
   };
 
   return (
-    <div id='modal' className={styles.modal}>
+    <div className={styles.modal}>
       {error ? <div>Error delete</div> : null}
       <div className={styles.modalTop}>
         <div className={styles.sign} />

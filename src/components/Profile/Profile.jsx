@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import Alert from 'antd/es/alert';
 
 import { editProfile } from 'api';
 import { useStore } from 'hooks/useStore';
@@ -34,7 +35,7 @@ const Profile = () => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={styles.title}>Edit Profile</h2>
         {modalWindow ? (
-          <div className={styles.success}>changes applied successfully</div>
+          <Alert message='changes applied successfully' type='success' />
         ) : null}
         <label>
           <div className={styles.label}>Username</div>

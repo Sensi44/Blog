@@ -38,12 +38,21 @@
   color: #F5222D;
 }
 
+label {
+  @include main(400, 14px, 22px);
+  color: #262626;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  padding-bottom: 2px;
+  display: block;
+}
+
 .label {
   @include main(400, 14px, 22px);
   color: #262626;
   margin-bottom: 2px;
-  margin-top: 12px;
 }
+
 
 .checkLabel {
   @include main(400, 14px, 22px);
@@ -159,15 +168,9 @@
 
 .success, .loginError {
   @include main(400, 16px, 22px);
-  width: 250px;
+  width: 240px;
   margin: 3px auto 3px;
-  background-color: #52C41A;
-  color: white;
   text-align: center;
   padding: 5px;
   border-radius: 5px;
-}
-
-.loginError {
-  background-color: firebrick;
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Alert } from 'antd';
 
 import { getTagList, addTag, deleteTag } from 'utils/tagsReduce';
 import { editArticle, getPost } from 'api';
@@ -79,14 +80,24 @@ const EditPost = () => {
       >
         <h2 className={styles.title}>Edit article</h2>
         {modalWindow ? (
-          <div className={styles.success}>successfully edited</div>
+          <Alert
+            message='Successfully edited'
+            className={styles.success}
+            type='success'
+            showIcon
+          />
         ) : null}
         {loginError ? (
-          <div className={styles.loginError}>edit failed</div>
+          <Alert
+            message='Edit failed'
+            type='error'
+            className={styles.loginError}
+            showIcon
+          />
         ) : null}
 
         <label>
-          <div className={styles.label}>Title</div>
+          Title
           <input
             className={styles.input}
             type='text'
@@ -105,7 +116,7 @@ const EditPost = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Short description</div>
+          Short description
           <input
             className={styles.input}
             type='text'
@@ -126,7 +137,7 @@ const EditPost = () => {
         </label>
 
         <label>
-          <div className={styles.label}>Text</div>
+          Text
           <textarea
             className={stylesAdd.textArea}
             placeholder='Text'

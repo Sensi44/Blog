@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Spin } from 'antd';
+import { Spin, Popconfirm, Button, Alert } from 'antd';
 import ReactMarkdown from 'react-markdown';
 
-import { dislikeArticle, getPost, likeArticle } from 'api';
+import { deleteArticle, dislikeArticle, getPost, likeArticle } from 'api';
 import { useStore } from 'hooks/useStore';
-import { Modal } from 'pages/Modal';
 import dateCorrector from 'utils/dateCorrector';
 import { setArticle } from 'store/slices/articleSlice';
-import {
-  setLoading,
-  setError,
-  startLoading,
-  setModal,
-} from 'store/slices/loadingSlice';
+import { setLoading, setError, startLoading } from 'store/slices/loadingSlice';
 import styles from 'components/PostPreview/PostP.module.scss';
 import 'antd/dist/antd.min.css';
 
@@ -22,13 +16,13 @@ const classNames = require('classnames');
 
 const Post = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { slug } = useParams();
   const {
     loading,
     error,
     username: user,
     token,
-    modalWindow,
     article: {
       createdAt,
       description,
@@ -41,10 +35,6 @@ const Post = () => {
     },
   } = useStore();
 
-  const handleModal = () => {
-    dispatch(setModal(true));
-  };
-
   const handleLike = () => {
     if (favorited) {
       dislikeArticle(token, slug).then((res) => {
@@ -56,6 +46,14 @@ const Post = () => {
         dispatch(setArticle(res.article));
       });
     }
+  };
+
+  const handleDeleteArticle = () => {
+    deleteArticle(token, slug)
+      .then(() => {
+        navigate('/articles');
+      })
+      .catch((err) => dispatch(setError(err)));
   };
 
   useEffect(() => {
@@ -80,11 +78,11 @@ const Post = () => {
       {loading ? <Spin size='large' className={styles.spin} /> : null}
 
       {error ? (
-        <div className={styles.loadingError}>
-          <p>Во время загрузки данных произошла ошибка</p>
-          <p>Абонент недоступен или временно ананас</p>
-          <p>{`"${error}"`}</p>
-        </div>
+        <Alert
+          message='An error occurred while loading data'
+          type='error'
+          showIcon
+        />
       ) : null}
       {loading || error ? null : (
         <div className={styles.article}>
@@ -124,16 +122,22 @@ const Post = () => {
               </div>
               {username === user ? (
                 <div className={styles.editable}>
-                  <button className={styles.btnDelete} onClick={handleModal}>
-                    Delete
-                  </button>
+                  <Popconfirm
+                    className={styles.btnDelete}
+                    placement='rightTop'
+                    title='Are you sure to delete this article?'
+                    onConfirm={handleDeleteArticle}
+                    okText='Yes'
+                    cancelText='No'
+                  >
+                    <Button>Delete</Button>
+                  </Popconfirm>
                   <Link
                     to={`/articles/${slug}/edit`}
                     className={styles.btnEdit}
                   >
                     Edit
                   </Link>
-                  {modalWindow ? <Modal slug={slug} /> : null}
                 </div>
               ) : null}
             </div>

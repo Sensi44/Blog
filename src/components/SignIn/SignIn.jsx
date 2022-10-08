@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { Alert } from 'antd';
 
 import { useStore } from 'hooks/useStore';
 import { signIn } from 'api';
@@ -50,14 +51,14 @@ const SignIn = () => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={styles.title}>Sign In</h2>
         {modalWindow ? (
-          <div className={styles.success}>Login Successful</div>
+          <Alert message='Login Successful' type='success' />
         ) : null}
         {loginError ? (
-          <div className={styles.loginError}>Incorrect login or password</div>
+          <Alert message='Incorrect login or password' type='error' showIcon />
         ) : null}
 
-        <label>
-          <div className={styles.label}>Email address</div>
+        <label className={styles.label}>
+          Email address
           <input
             className={styles.input}
             type='email'
@@ -75,8 +76,8 @@ const SignIn = () => {
           )}
         </label>
 
-        <label>
-          <div className={styles.label}>Password</div>
+        <label className={styles.label}>
+          Password
           <input
             className={styles.input}
             autoComplete='on'

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Spin } from 'antd';
+import { Spin, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import { Pages } from 'components/Pages';
@@ -46,10 +46,13 @@ const PostList = () => {
       ) : null}
 
       {error ? (
-        <div className={styles.error}>
-          <p>An error occurred while loading data</p>
-          <p>{`"${error}"`}</p>
-        </div>
+        <section className={styles.section}>
+          <Alert
+            message='An error occurred while loading data'
+            type='error'
+            showIcon
+          />
+        </section>
       ) : null}
 
       {loading || error ? null : (
