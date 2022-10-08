@@ -12,16 +12,6 @@ const reducer = combineReducers({
   posts: postsSlice,
 });
 
-const logger = () => (next) => (action) => {
-  // console.log(`▬▬▬▬▬▬▬ ${action.type} ▬▬▬▬▬▬▬`);
-  const result = next(action);
-  // console.log(store.getState());
-  return result;
-};
-
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat([logger]);
-  },
 });

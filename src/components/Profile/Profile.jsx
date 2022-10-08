@@ -5,12 +5,13 @@ import Alert from 'antd/es/alert';
 
 import { editProfile } from 'api';
 import { useStore } from 'hooks/useStore';
+import { setError } from 'store/slices/userSlice';
 import { setModal } from 'store/slices/loadingSlice';
 import styles from 'components/SignUp/forms.module.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { modalWindow, token, username, email, image } = useStore();
+  const { modalWindow, token, username, email, image, loginError } = useStore();
   const {
     register,
     handleSubmit,
@@ -25,7 +26,8 @@ const Profile = () => {
       })
       .catch((err) => {
         if (err.response.status === 422) {
-          alert('Error changing user data');
+          dispatch(setError(err.response.data.errors));
+          setTimeout(() => dispatch(setError(null)), 2400);
         }
       });
   };
@@ -36,6 +38,9 @@ const Profile = () => {
         <h2 className={styles.title}>Edit Profile</h2>
         {modalWindow ? (
           <Alert message='changes applied successfully' type='success' />
+        ) : null}
+        {loginError ? (
+          <Alert message='error changing data user' type='error' showIcon />
         ) : null}
         <label>
           <div className={styles.label}>Username</div>

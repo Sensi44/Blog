@@ -1,43 +1,65 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { Alert } from 'antd';
 
-import { getTagList, addTag, deleteTag } from 'utils/tagsReduce';
-import { editArticle, getPost } from 'api';
+import { addTag, deleteTag, getTagList } from 'utils/tagsReduce';
+import { createArticle, editArticle, getPost } from 'api';
 import { useStore } from 'hooks/useStore';
 import { NewTag } from 'components/NewTag';
 import { setLoading, setModal, startLoading } from 'store/slices/loadingSlice';
 import { setArticle } from 'store/slices/articleSlice';
 import { setError } from 'store/slices/userSlice';
-import stylesAdd from 'components/NewPost/newEdit.module.scss';
+import stylesAdd from 'components/NewEditPost/newEdit.module.scss';
 import styles from 'components/SignUp/forms.module.scss';
 
-const EditPost = () => {
-  const navigate = useNavigate();
+const NewEditPost = ({ newPost }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { slug } = useParams();
+  const [count, setCount] = useState(2);
   const {
     modalWindow,
     loginError,
     token,
     article = { tagList: [] },
   } = useStore();
-  const [tags, setTags] = useState(getTagList(article.tagList));
-  const [count, setCount] = useState(25);
   const {
     register,
     unregister,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [tags, setTags] = useState(
+    newPost
+      ? [{ key: 1, title: `tag${1}`, last: true, id: 1, required: true }]
+      : getTagList(article.tagList)
+  );
+
+  const addFirstTag = () => {
+    setTags(getTagList(['enter tag']));
+  };
 
   const redirect = () => {
     navigate('/articles');
   };
 
   const onSubmit = ({ title, description, text, ...tagsArray }) => {
+    if (newPost) {
+      createArticle(token, title, description, text, Object.values(tagsArray))
+        .then(() => {
+          dispatch(setModal(true));
+          setTimeout(() => dispatch(setModal(false)), 1500);
+          setTimeout(redirect, 1700);
+        })
+        .catch((err) => {
+          if (err.response.status === 422) {
+            dispatch(setError(err.response.data.errors));
+            setTimeout(() => dispatch(setError(null)), 2000);
+          }
+        });
+    }
     editArticle(token, slug, title, description, text, Object.values(tagsArray))
       .then((res) => {
         dispatch(setModal(true));
@@ -53,24 +75,22 @@ const EditPost = () => {
   };
 
   useEffect(() => {
-    setTags(getTagList(article.tagList));
-  }, [article]);
+    if (!newPost) {
+      dispatch(startLoading());
+      getPost(slug, token)
+        .then((res) => {
+          dispatch(setArticle(res.article));
+        })
+        .catch((err) => dispatch(setError(err.message)))
+        .finally(() => {
+          dispatch(setLoading(false));
+        });
+    }
+  }, [slug, dispatch, token, newPost]);
 
   useEffect(() => {
-    dispatch(startLoading());
-    getPost(slug, token)
-      .then((res) => {
-        dispatch(setArticle(res.article));
-      })
-      .catch((err) => dispatch(setError(err.message)))
-      .finally(() => {
-        dispatch(setLoading(false));
-      });
-  }, [slug, dispatch, token]);
-
-  const addFirstTag = () => {
-    setTags(getTagList(['enter tag']));
-  };
+    if (!localStorage.getItem('user_token')) navigate('/sign-in');
+  });
 
   return (
     <div className={`${styles.formContainer} ${stylesAdd.formContainer}`}>
@@ -78,10 +98,12 @@ const EditPost = () => {
         className={`${styles.form} ${stylesAdd.formSize}`}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className={styles.title}>Edit article</h2>
+        <h2 className={styles.title}>
+          {newPost ? 'Create new article' : 'Edit article'}
+        </h2>
         {modalWindow ? (
           <Alert
-            message='Successfully edited'
+            message={newPost ? 'Article created' : 'Successfully edited'}
             className={styles.success}
             type='success'
             showIcon
@@ -89,7 +111,7 @@ const EditPost = () => {
         ) : null}
         {loginError ? (
           <Alert
-            message='Edit failed'
+            message={newPost ? 'Article was not created' : 'Edit failed'}
             type='error'
             className={styles.loginError}
             showIcon
@@ -102,7 +124,7 @@ const EditPost = () => {
             className={styles.input}
             type='text'
             placeholder='Title'
-            defaultValue={article.title}
+            defaultValue={newPost ? null : article.title}
             {...register('title', {
               required: true,
               minLength: 3,
@@ -121,12 +143,12 @@ const EditPost = () => {
             className={styles.input}
             type='text'
             placeholder='Title'
-            defaultValue={article.description}
+            defaultValue={newPost ? null : article.description}
             {...register('description', {
               required: true,
               minLength: 3,
               maxLength: 80,
-              pattern: /^[0-9A-Za-zА-Яа-я\s]+$/i,
+              pattern: /^[0-9A-Za-zА-Яа-яё\s]+$/i,
             })}
           />
           {errors.description && (
@@ -141,11 +163,13 @@ const EditPost = () => {
           <textarea
             className={stylesAdd.textArea}
             placeholder='Text'
-            defaultValue={article.body}
+            defaultValue={newPost ? null : article.body}
             {...register('text', { maxLength: 5000 })}
           />
           {errors.description && (
-            <span className={styles.inputError}>Please enter article text</span>
+            <span className={styles.inputError}>
+              Please enter short description
+            </span>
           )}
         </label>
 
@@ -177,6 +201,7 @@ const EditPost = () => {
             />
           ) : null}
         </div>
+
         <input
           type='submit'
           value='Send'
@@ -187,4 +212,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default NewEditPost;
