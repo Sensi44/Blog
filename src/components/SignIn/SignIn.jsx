@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -13,8 +13,7 @@ import styles from 'components/SignUp/forms.module.scss';
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { modalWindow, loginError, username } = useStore();
-
+  const { modalWindow, loginError } = useStore();
   const {
     register,
     handleSubmit,
