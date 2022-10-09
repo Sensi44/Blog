@@ -42,10 +42,6 @@ const SignIn = () => {
       });
   };
 
-  useEffect(() => {
-    if (username) navigate('/articles');
-  });
-
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

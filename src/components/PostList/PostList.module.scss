@@ -44,3 +44,17 @@
     }
   }
 }
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .section {
+    .post {
+      width: 95%;
+    }
+  }
+}
+
+//@media (min-width: 480px) and (max-width: 676px) {
+//  .app {
+//    width: calc(100% - 60px);
+//  }
+//}

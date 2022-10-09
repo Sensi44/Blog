@@ -43,8 +43,13 @@ $blue: #1890FF;
   resize: none;
 }
 
-.textArea::-webkit-input-placeholder {color: #BFBFBF;}
-.textArea:-moz-placeholder {color: #BFBFBF;}
+.textArea::-webkit-input-placeholder {
+  color: #BFBFBF;
+}
+
+.textArea:-moz-placeholder {
+  color: #BFBFBF;
+}
 
 .textArea:focus-visible {
   outline: none;
@@ -52,31 +57,38 @@ $blue: #1890FF;
 }
 
 .textArea::-moz-placeholder {
-  text-indent: 0; transition: text-indent 0.4s ease;
+  text-indent: 0;
+  transition: text-indent 0.4s ease;
 }
 
 .textArea:-moz-placeholder {
-  text-indent: 0; transition: text-indent 0.4s ease;
+  text-indent: 0;
+  transition: text-indent 0.4s ease;
 }
 
 .textArea:-ms-input-placeholder {
-  text-indent: 0; transition: text-indent 0.4s ease;
+  text-indent: 0;
+  transition: text-indent 0.4s ease;
 }
 
 .textArea:focus::-webkit-input-placeholder {
-  text-indent: 400px; transition: text-indent 0.5s ease;
+  text-indent: 400px;
+  transition: text-indent 0.5s ease;
 }
 
 .textArea:focus::-moz-placeholder {
-  text-indent: 400px; transition: text-indent 0.5s ease;
+  text-indent: 400px;
+  transition: text-indent 0.5s ease;
 }
 
 .textArea:focus:-moz-placeholder {
-  text-indent: 400px; transition: text-indent 0.5s ease;
+  text-indent: 400px;
+  transition: text-indent 0.5s ease;
 }
 
 .input:focus:-ms-input-placeholder {
-  text-indent: 400px; transition: text-indent 0.5s ease;
+  text-indent: 400px;
+  transition: text-indent 0.5s ease;
 }
 
 .tags {
@@ -134,4 +146,52 @@ $blue: #1890FF;
 
 .deleteBtn:focus-visible {
   outline: 1px solid $blue;
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .formContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .formSize {
+    margin-top: 15px;
+    width: calc(100% - 60px);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .formContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .formSize {
+    margin-top: 15px;
+    width: calc(100% - 60px);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .formContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .formSize {
+    margin-top: 15px;
+    width: calc(100% - 60px);
+  }
+
+  .inputsContainer {
+    flex-direction: column;
+  }
+
+  .deleteBtn {
+    width: 136px;
+    margin: 0;
+  }
 }

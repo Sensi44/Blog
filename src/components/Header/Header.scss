@@ -95,3 +95,11 @@ header {
     }
   }
 }
+
+@media (min-width: 480px) and (max-width: 676px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+  }
+}
