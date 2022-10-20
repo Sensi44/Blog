@@ -30,6 +30,7 @@ const NewEditPost = ({ newPost }) => {
     unregister,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [tags, setTags] = useState(
     newPost
@@ -73,6 +74,21 @@ const NewEditPost = ({ newPost }) => {
         }
       });
   };
+
+  useEffect(() => {
+    if (newPost) {
+      setTags([
+        { key: 1, title: `tag${1}`, last: true, id: 1, required: true },
+      ]);
+
+      reset({
+        title: '',
+        description: '',
+        text: '',
+        tag1: '',
+      });
+    }
+  }, [newPost]);
 
   useEffect(() => {
     if (!newPost) {
